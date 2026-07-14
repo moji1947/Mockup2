@@ -1,0 +1,1605 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>EPS Dashboard — Quality (Q · QCD)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   EPS DASHBOARD — "BLUEPRINT & CONCRETE" THEME
+   Steel-blueprint blue + warm concrete neutrals + safety amber/rust
+   ============================================================ */
+:root{
+  --primary:#0B4F6C;
+  --primary-600:#073A50;
+  --primary-50:#EAF2F5;
+  --primary-100:#CBE0E8;
+
+  --ink:#1C2B36;
+  --ink-2:#33454F;
+  --muted:#5B6B72;
+  --muted-2:#8B9AA1;
+
+  --border:#DCD8CE;
+  --border-soft:#E9E6DD;
+  --bg:#F2F0EA;
+  --card:#FFFFFF;
+
+  --success:#1B7A43;
+  --success-50:#E9F6EE;
+  --warning:#B5650D;
+  --warning-50:#FBF1E6;
+  --danger:#B23A32;
+  --danger-50:#FBEEEC;
+  --info:#0E7C86;
+  --info-50:#EAF6F7;
+
+  --radius:14px;
+  --radius-sm:10px;
+  --shadow-card:0 1px 2px rgba(28,43,54,.05), 0 1px 3px rgba(28,43,54,.07);
+  --shadow-pop:0 4px 14px rgba(28,43,54,.10), 0 2px 5px rgba(28,43,54,.05);
+
+  --font-display:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif;
+  --font-body:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif;
+  --font-mono:'IBM Plex Mono', ui-monospace, monospace;
+}
+
+*,*:before,*:after{ box-sizing:border-box; }
+html,body{ height:100%; }
+body{
+  margin:0;
+  font-family:var(--font-body);
+  background:var(--bg);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  font-size:14px;
+  line-height:1.5;
+}
+a{ color:inherit; text-decoration:none; }
+button{ font-family:inherit; cursor:pointer; }
+table{ border-collapse:collapse; width:100%; }
+::selection{ background:var(--primary-100); }
+
+::-webkit-scrollbar{ width:8px; height:8px; }
+::-webkit-scrollbar-thumb{ background:#CFC9BC; border-radius:8px; }
+::-webkit-scrollbar-track{ background:transparent; }
+
+.hidden{ display:none !important; }
+
+/* ============ LOGIN ============ */
+#view-login{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:
+    radial-gradient(1100px 500px at 15% -10%, var(--primary-50), transparent 60%),
+    radial-gradient(900px 500px at 100% 110%, #EFF2E8, transparent 55%),
+    var(--bg);
+  padding:24px;
+}
+.login-shell{
+  width:100%;
+  max-width:920px;
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:20px;
+  box-shadow:var(--shadow-pop);
+  display:grid;
+  grid-template-columns:1fr;
+  overflow:hidden;
+}
+@media(min-width:860px){ .login-shell{ grid-template-columns:1.05fr 1fr; } }
+
+.login-aside{
+  background:linear-gradient(160deg, var(--primary-600), var(--primary) 65%, #3E8AA0);
+  color:#fff;
+  padding:44px 40px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+  position:relative;
+  overflow:hidden;
+  min-height:420px;
+}
+.login-aside:before{
+  content:"";
+  position:absolute; inset:0;
+  background-image:linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size:34px 34px;
+  opacity:.5;
+}
+.login-aside > *{ position:relative; z-index:1; }
+.brand-row{ display:flex; align-items:center; gap:10px; }
+.brand-mark{
+  width:38px; height:38px; border-radius:10px;
+  background:#fff; color:var(--primary-600);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:800; font-size:14px;
+  flex-shrink:0;
+}
+.brand-name{ font-family:var(--font-display); font-weight:700; font-size:16px; }
+.brand-sub{ font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:rgba(255,255,255,.78); font-family:var(--font-mono); }
+
+.login-headline{ font-family:var(--font-display); font-weight:700; font-size:25px; line-height:1.5; margin:30px 0 12px; }
+.login-copy{ font-size:13.5px; line-height:1.75; color:rgba(255,255,255,.85); max-width:340px; }
+.qcd-pills{ display:flex; gap:8px; margin-top:24px; flex-wrap:wrap; }
+.qcd-pill{ font-family:var(--font-mono); font-size:11px; padding:6px 10px; border-radius:999px; background:rgba(255,255,255,.14); border:1px solid rgba(255,255,255,.22); white-space:nowrap; }
+.qcd-pill.active{ background:#fff; color:var(--primary-600); font-weight:700; }
+.login-foot{ display:flex; justify-content:space-between; gap:10px; font-size:10.5px; color:rgba(255,255,255,.62); font-family:var(--font-mono); padding-top:26px; margin-top:26px; border-top:1px solid rgba(255,255,255,.16); }
+
+.login-form-wrap{ padding:40px 36px; }
+.eyebrow{ font-family:var(--font-mono); font-size:11.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--primary); margin-bottom:8px; font-weight:600; }
+.login-title{ font-family:var(--font-display); font-size:22px; font-weight:700; margin-bottom:4px; }
+.login-sub{ color:var(--muted); font-size:13px; margin-bottom:24px; }
+.field{ margin-bottom:16px; }
+.field label{ display:block; font-size:12.5px; font-weight:600; color:var(--muted); margin-bottom:6px; }
+.input, select.input{
+  width:100%; border:1px solid var(--border); border-radius:10px; padding:10px 12px;
+  font-size:13.5px; background:#fff; color:var(--ink); font-family:inherit; line-height:1.4;
+}
+.input:focus{ outline:none; border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-50); }
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:8px;
+  border-radius:10px; padding:11px 16px; font-size:13.5px; font-weight:600; border:1px solid transparent;
+}
+.btn-primary{ background:var(--primary); color:#fff; width:100%; }
+.btn-primary:hover{ background:var(--primary-600); }
+.btn-outline{ background:#fff; border-color:var(--border); color:var(--ink); width:100%; }
+.btn-outline:hover{ border-color:var(--primary); color:var(--primary); }
+.divider-row{ display:flex; align-items:center; gap:10px; margin:18px 0; color:var(--muted-2); font-size:11.5px; }
+.divider-row .line{ flex:1; height:1px; background:var(--border); }
+
+/* ============ APP SHELL ============ */
+#view-dashboard{ min-height:100vh; display:flex; }
+
+.sidebar{
+  width:252px; flex-shrink:0; background:#fff; border-right:1px solid var(--border);
+  display:flex; flex-direction:column; position:sticky; top:0; height:100vh;
+}
+.sidebar-brand{ display:flex; align-items:center; gap:10px; padding:18px 18px; border-bottom:1px solid var(--border-soft); }
+.sidebar-brand .brand-mark{ background:var(--primary); color:#fff; }
+.sidebar-brand .brand-name{ color:var(--ink); }
+.sidebar-brand .brand-sub{ color:var(--primary); }
+
+.project-chip{
+  margin:14px 14px 6px; padding:12px; border-radius:12px;
+  background:var(--primary-50); border:1px solid var(--primary-100);
+}
+.project-chip .lbl{ font-size:11px; color:var(--primary-600); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.08em; }
+.project-chip .name{ font-size:13px; font-weight:700; color:var(--ink); margin-top:3px; }
+.project-chip .code{ font-size:11.5px; color:var(--muted); font-family:var(--font-mono); margin-top:1px; }
+
+.nav{ flex:1; padding:10px 10px; display:flex; flex-direction:column; gap:2px; overflow-y:auto; }
+.nav-label{ font-size:11px; text-transform:uppercase; letter-spacing:.1em; color:var(--muted-2); font-family:var(--font-mono); padding:14px 10px 6px; }
+.nav-item{
+  display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:9px;
+  color:var(--muted); font-size:13.5px; font-weight:500; background:transparent; border:none; width:100%; text-align:left;
+}
+.nav-item svg{ width:17px; height:17px; flex-shrink:0; }
+.nav-item:hover{ background:var(--bg); color:var(--ink); }
+.nav-item.active{ background:var(--primary-50); color:var(--primary-600); font-weight:700; }
+.nav-item .dot{ margin-left:auto; width:7px; height:7px; border-radius:99px; background:var(--danger); }
+
+.sidebar-user{ padding:14px 16px; border-top:1px solid var(--border-soft); display:flex; align-items:center; gap:10px; }
+.avatar{ width:32px; height:32px; border-radius:99px; background:var(--primary-100); color:var(--primary-600); display:flex; align-items:center; justify-content:center; font-weight:700; font-size:12px; flex-shrink:0; }
+.user-meta{ line-height:1.3; min-width:0; }
+.user-meta .u-name{ font-size:12.5px; font-weight:600; color:var(--ink); white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.user-meta .u-role{ font-size:11.5px; color:var(--muted); }
+
+.main{ flex:1; min-width:0; display:flex; flex-direction:column; }
+
+.topbar{
+  height:64px; flex-shrink:0; background:#fff; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; padding:0 22px;
+  position:sticky; top:0; z-index:30;
+}
+.breadcrumb{ display:flex; align-items:center; gap:7px; font-size:13px; color:var(--muted); }
+.breadcrumb b{ color:var(--ink); font-weight:600; }
+.breadcrumb .sep{ color:var(--muted-2); }
+.breadcrumb .tag-current{ color:var(--primary); font-weight:700; }
+.topbar-right{ display:flex; align-items:center; gap:10px; }
+.search-box{
+  display:flex; align-items:center; gap:8px; background:var(--bg); border:1px solid var(--border);
+  border-radius:9px; padding:7px 11px; width:230px; color:var(--muted-2);
+}
+.search-box input{ border:none; background:transparent; outline:none; font-size:13px; width:100%; color:var(--ink); }
+.icon-btn{ width:36px; height:36px; border-radius:9px; border:1px solid var(--border); background:#fff; display:flex; align-items:center; justify-content:center; color:var(--muted); position:relative; }
+.icon-btn:hover{ background:var(--bg); }
+.icon-btn .ping{ position:absolute; top:6px; right:6px; width:7px; height:7px; border-radius:99px; background:var(--danger); border:1.5px solid #fff; }
+.sync-chip{ display:flex; align-items:center; gap:6px; font-size:11.5px; color:var(--muted); background:var(--success-50); border:1px solid #CFEBDA; padding:6px 10px; border-radius:99px; white-space:nowrap; }
+.sync-dot{ width:6px; height:6px; border-radius:99px; background:var(--success); }
+
+.content{ padding:22px 26px 60px; max-width:1360px; width:100%; margin:0 auto; }
+
+.page{ display:none; }
+.page.active{ display:block; animation:fade .25s ease; }
+@keyframes fade{ from{ opacity:0; transform:translateY(4px); } to{ opacity:1; transform:none; } }
+
+/* ---- shared components ---- */
+.grid{ display:grid; grid-template-columns:repeat(12,1fr); gap:16px; }
+.col-3{ grid-column:span 12; } .col-4{ grid-column:span 12; } .col-5{ grid-column:span 12; }
+.col-6{ grid-column:span 12; } .col-7{ grid-column:span 12; } .col-8{ grid-column:span 12; } .col-12{ grid-column:span 12; }
+@media(min-width:640px){ .col-3{ grid-column:span 6; } .col-4{ grid-column:span 6; } }
+@media(min-width:960px){
+  .col-3{ grid-column:span 3; } .col-4{ grid-column:span 4; } .col-5{ grid-column:span 5; }
+  .col-6{ grid-column:span 6; } .col-7{ grid-column:span 7; } .col-8{ grid-column:span 8; }
+}
+
+.card{ background:var(--card); border:1px solid var(--border); border-radius:var(--radius); box-shadow:var(--shadow-card); padding:18px 20px; }
+.card-head{ display:flex; align-items:flex-start; justify-content:space-between; margin-bottom:14px; gap:10px; }
+.card-title{ font-family:var(--font-display); font-size:14.5px; font-weight:700; color:var(--ink); }
+.card-sub{ font-size:12.5px; color:var(--muted); margin-top:2px; }
+.doctype-tag{ font-family:var(--font-mono); font-size:10.5px; background:var(--bg); border:1px solid var(--border); color:var(--muted); padding:2px 7px; border-radius:6px; }
+
+.section{ margin-bottom:26px; }
+.section-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; flex-wrap:wrap; gap:8px; }
+.section-title{ font-family:var(--font-display); font-size:17px; font-weight:700; color:var(--ink); display:flex; align-items:center; gap:9px; }
+.section-title .sw{ width:9px; height:9px; border-radius:3px; background:var(--primary); }
+.section-en{ font-size:12.5px; color:var(--muted-2); font-weight:500; margin-top:2px; }
+
+/* KPI cards */
+.kpi{ display:flex; flex-direction:column; gap:2px; }
+.kpi-top{ display:flex; align-items:center; justify-content:space-between; }
+.kpi-ico{ width:32px; height:32px; border-radius:9px; display:flex; align-items:center; justify-content:center; }
+.kpi-ico svg{ width:16px; height:16px; }
+.kpi-label{ font-size:12px; color:var(--muted); font-weight:500; margin-top:10px; }
+.kpi-label-en{ font-size:11.5px; color:var(--muted-2); }
+.kpi-value{ font-family:var(--font-display); font-size:26px; font-weight:800; color:var(--ink); margin-top:2px; }
+.kpi-trend{ font-size:11.5px; font-weight:600; display:inline-flex; align-items:center; gap:3px; margin-top:6px; width:fit-content; padding:2px 7px; border-radius:99px; }
+.trend-up{ color:var(--success); background:var(--success-50); }
+.trend-down{ color:var(--danger); background:var(--danger-50); }
+.trend-flat{ color:var(--muted); background:var(--bg); }
+
+.bg-primary{ background:var(--primary-50); color:var(--primary); }
+.bg-success{ background:var(--success-50); color:var(--success); }
+.bg-warning{ background:var(--warning-50); color:var(--warning); }
+.bg-danger{ background:var(--danger-50); color:var(--danger); }
+.bg-info{ background:var(--info-50); color:var(--info); }
+
+/* pills */
+.pill{ display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:600; padding:3px 9px; border-radius:99px; font-family:var(--font-mono); }
+.pill-success{ background:var(--success-50); color:var(--success); }
+.pill-warning{ background:var(--warning-50); color:var(--warning); }
+.pill-danger{ background:var(--danger-50); color:var(--danger); }
+.pill-muted{ background:var(--bg); color:var(--muted); border:1px solid var(--border); }
+.pill-info{ background:var(--info-50); color:var(--info); }
+
+/* tables */
+.tbl th{ text-align:left; font-size:11.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted-2); font-weight:600; padding:8px 10px; border-bottom:1px solid var(--border); white-space:nowrap; }
+.tbl td{ padding:11px 10px; border-bottom:1px solid var(--border-soft); font-size:13px; vertical-align:middle; }
+.tbl tr:last-child td{ border-bottom:none; }
+.tbl tr:hover td{ background:var(--bg); }
+.mono{ font-family:var(--font-mono); font-size:12.5px; }
+.tbl-wrap{ overflow-x:auto; }
+
+/* gauge */
+.gauge-wrap{ display:flex; flex-direction:column; align-items:center; }
+.gauge-num{ font-family:var(--font-display); font-weight:800; font-size:34px; fill:var(--ink); }
+.gauge-lbl{ font-size:11.5px; fill:var(--muted); }
+
+/* bars */
+.bar-row{ display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+.bar-row:last-child{ margin-bottom:0; }
+.bar-label{ font-size:12.5px; color:var(--muted); width:118px; flex-shrink:0; }
+.bar-track{ flex:1; height:9px; border-radius:99px; background:var(--bg); overflow:hidden; display:flex; }
+.bar-fill{ height:100%; border-radius:99px; }
+.bar-value{ font-size:12px; font-weight:700; color:var(--ink); width:38px; text-align:right; flex-shrink:0; font-family:var(--font-mono); }
+
+.legend{ display:flex; flex-wrap:wrap; gap:12px; margin-top:14px; }
+.legend-item{ display:flex; align-items:center; gap:6px; font-size:12px; color:var(--muted); }
+.legend-dot{ width:8px; height:8px; border-radius:3px; }
+
+.note-box{
+  display:flex; gap:10px; background:var(--primary-50); border:1px solid var(--primary-100);
+  border-radius:var(--radius); padding:14px 16px; margin-bottom:22px;
+}
+.note-box svg{ width:18px; height:18px; color:var(--primary); flex-shrink:0; margin-top:1px; }
+.note-box p{ font-size:13px; color:var(--ink-2); line-height:1.7; }
+.note-box .note-en{ color:var(--muted); font-size:12px; margin-top:3px; }
+
+.coming{
+  background:var(--card); border:1px dashed var(--border); border-radius:var(--radius);
+  padding:70px 20px; text-align:center; color:var(--muted);
+}
+.coming svg{ width:38px; height:38px; margin:0 auto 14px; color:var(--muted-2); }
+.coming h3{ font-family:var(--font-display); font-size:17px; color:var(--ink); margin-bottom:4px; }
+.coming p{ font-size:12.5px; }
+
+.footer-note{ text-align:center; font-size:12px; color:var(--muted-2); padding:20px 0 6px; }
+
+/* ============ PROJECTS OVERVIEW PAGE ============ */
+.pnav{
+  height:64px; background:#fff; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; padding:0 24px;
+  position:sticky; top:0; z-index:30;
+}
+.pnav-left{ display:flex; align-items:center; gap:12px; }
+.hub-select{ display:flex; align-items:center; gap:8px; padding:6px 10px; border:1px solid var(--border); border-radius:9px; font-size:12.5px; color:var(--ink); background:#fff; }
+.hub-select .hub-ico{ width:22px; height:22px; border-radius:6px; background:var(--danger-50); color:var(--danger); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; }
+.projects-content{ padding:24px 26px 60px; max-width:1360px; margin:0 auto; }
+.page-h1{ font-family:var(--font-display); font-size:24px; font-weight:800; }
+.page-h1-sub{ font-size:12.5px; color:var(--muted); margin-top:3px; }
+
+.stat-box{ background:var(--bg); border:1px solid var(--border-soft); border-radius:12px; padding:14px 16px; }
+.stat-box .lbl{ font-size:11px; color:var(--muted-2); font-family:var(--font-mono); text-transform:uppercase; letter-spacing:.06em; }
+.stat-box .val{ font-family:var(--font-display); font-size:28px; font-weight:800; margin-top:4px; }
+
+.status-row{ margin-bottom:16px; }
+.status-row:last-child{ margin-bottom:0; }
+.status-row-top{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:5px; }
+.status-row-top .nm{ font-size:13px; font-weight:700; }
+.status-row-top .sub{ font-size:11.5px; color:var(--muted); margin-left:6px; font-weight:500; }
+.status-row-top .ct{ font-size:12px; color:var(--muted); font-family:var(--font-mono); }
+.status-track{ height:9px; border-radius:99px; background:var(--bg); overflow:hidden; }
+.status-fill{ height:100%; border-radius:99px; }
+
+/* map */
+.map-wrap{ position:relative; width:100%; height:420px; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:#dbe6ea; }
+.map-wrap iframe{ width:100%; height:100%; border:0; filter:saturate(.88) sepia(.06); }
+.map-legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; }
+.map-pin{ position:absolute; transform:translate(-50%,-100%); background:none; border:none; padding:0; cursor:pointer; z-index:5; }
+.map-pin .pin-dot{ display:block; width:15px; height:15px; border-radius:50%; border:2.5px solid #fff; box-shadow:0 2px 6px rgba(28,43,54,.35); position:relative; }
+.map-pin .pin-pulse{ position:absolute; inset:-6px; border-radius:50%; opacity:.35; animation:pinpulse 2.2s ease-out infinite; }
+.map-pin .pin-tag{
+  position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%);
+  background:var(--ink); color:#fff; font-size:11px; padding:4px 8px; border-radius:6px; white-space:nowrap;
+  opacity:0; pointer-events:none; transition:opacity .15s; font-family:var(--font-mono);
+}
+.map-pin:hover .pin-tag{ opacity:1; }
+.map-pin.st-ahead .pin-dot,.map-pin.st-ahead .pin-pulse{ background:var(--primary); }
+.map-pin.st-onplan .pin-dot,.map-pin.st-onplan .pin-pulse{ background:var(--success); }
+.map-pin.st-atrisk .pin-dot,.map-pin.st-atrisk .pin-pulse{ background:var(--warning); }
+.map-pin.st-delay .pin-dot,.map-pin.st-delay .pin-pulse{ background:var(--danger); }
+.map-pin.st-finished .pin-dot,.map-pin.st-finished .pin-pulse{ background:var(--muted-2); }
+@keyframes pinpulse{ 0%{ transform:scale(.6); opacity:.5; } 100%{ transform:scale(1.8); opacity:0; } }
+
+/* project cards */
+.proj-card{
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px 16px 14px; box-shadow:var(--shadow-card); cursor:pointer; transition:transform .15s, box-shadow .15s;
+  border-left:3px solid var(--border); position:relative;
+}
+.proj-card:hover{ transform:translateY(-2px); box-shadow:var(--shadow-pop); border-color:var(--primary-100); }
+.proj-card.st-ahead{ border-left-color:var(--primary); }
+.proj-card.st-onplan{ border-left-color:var(--success); }
+.proj-card.st-atrisk{ border-left-color:var(--warning); }
+.proj-card.st-delay{ border-left-color:var(--danger); }
+.proj-card.st-finished{ border-left-color:var(--muted-2); }
+.proj-code{ font-family:var(--font-mono); font-size:11px; color:var(--muted-2); }
+.proj-name{ font-family:var(--font-display); font-weight:700; font-size:14.5px; margin:3px 0 2px; line-height:1.3; }
+.proj-loc{ font-size:12px; color:var(--muted); display:flex; align-items:center; gap:4px; }
+.proj-loc svg{ width:12px; height:12px; }
+.proj-rings{ display:flex; gap:14px; margin:14px 0 6px; }
+.proj-rings .rc{ display:flex; flex-direction:column; align-items:center; gap:5px; }
+.proj-rings .rc-lbl{ font-size:10px; color:var(--muted-2); text-transform:uppercase; letter-spacing:.05em; }
+.proj-open{ display:flex; align-items:center; gap:4px; font-size:11.5px; font-weight:700; color:var(--primary); margin-top:8px; }
+.proj-open svg{ width:13px; height:13px; }
+
+.ring{ position:relative; width:52px; height:52px; }
+.ring svg{ width:100%; height:100%; transform:rotate(-90deg); }
+.ring-track{ fill:none; stroke:var(--border); stroke-width:5; }
+.ring-fill{ fill:none; stroke:var(--primary); stroke-width:5; stroke-linecap:round; transition:stroke-dashoffset .5s ease; }
+.ring-label{ position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:10.5px; font-weight:700; font-family:var(--font-mono); color:var(--ink); }
+
+.filter-row{ display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+.chip-filter{ font-size:11.5px; padding:6px 12px; border-radius:99px; border:1px solid var(--border); background:#fff; color:var(--muted); font-weight:600; }
+.chip-filter.on{ background:var(--primary-50); border-color:var(--primary-100); color:var(--primary); }
+
+.hamburger{ display:none; }
+@media(max-width:900px){
+  .sidebar{ position:fixed; left:0; top:0; height:100vh; z-index:50; transform:translateX(-100%); transition:transform .2s ease; box-shadow:var(--shadow-pop); }
+  .sidebar.open{ transform:translateX(0); }
+  .hamburger{ display:flex; }
+  .search-box{ display:none; }
+  .content{ padding:16px; }
+}
+
+/* ============ PROGRESS / DELIVERY PAGE ============ */
+.blueprint-card{
+  background:
+    linear-gradient(var(--card), var(--card)),
+    radial-gradient(circle, rgba(11,79,108,.09) 1px, transparent 1.4px);
+  background-size:100% 100%, 22px 22px;
+  background-position:0 0, -5px -5px;
+}
+.scurve-wrap{ overflow-x:auto; }
+.scurve-wrap svg{ display:block; min-width:640px; width:100%; height:auto; }
+.scurve-axis-label{ font-size:10.5px; font-family:var(--font-mono); fill:var(--muted-2); }
+.scurve-grid{ stroke:var(--border); stroke-width:1; }
+.scurve-today-line{ stroke:var(--ink-2); stroke-width:1.4; stroke-dasharray:3 3; }
+.scurve-plan{ fill:none; stroke:var(--muted-2); stroke-width:2.5; stroke-dasharray:5 4; }
+.scurve-actual{ fill:none; stroke:var(--primary); stroke-width:3; }
+.scurve-forecast{ fill:none; stroke:var(--warning); stroke-width:2.5; stroke-dasharray:2 4; }
+.scurve-fill{ fill:var(--primary-50); opacity:.6; }
+.scurve-dot{ fill:var(--primary); stroke:#fff; stroke-width:2; }
+
+.gantt-wrap{ position:relative; }
+.gantt-months{ display:flex; padding-left:168px; font-family:var(--font-mono); font-size:10.5px; color:var(--muted-2); margin-bottom:6px; }
+.gantt-months span{ flex:1; text-align:left; }
+.gantt-row{ display:flex; align-items:center; gap:12px; padding:9px 0; border-bottom:1px solid var(--border-soft); }
+.gantt-row:last-child{ border-bottom:none; }
+.gantt-label{ width:156px; flex-shrink:0; }
+.gantt-label .nm{ font-size:12.5px; font-weight:600; color:var(--ink); line-height:1.3; }
+.gantt-label .wbs{ font-size:10.5px; color:var(--muted-2); font-family:var(--font-mono); }
+.gantt-track{ position:relative; flex:1; height:26px; }
+.gantt-plan-bar{ position:absolute; top:2px; height:8px; border:1.5px dashed var(--muted-2); border-radius:5px; background:transparent; }
+.gantt-actual-bar{ position:absolute; bottom:2px; height:10px; border-radius:5px; }
+.gantt-today{ position:absolute; top:-30px; bottom:-9px; width:0; border-left:1.5px dashed var(--ink-2); z-index:2; }
+.gantt-today .tag{ position:absolute; top:-18px; left:4px; font-family:var(--font-mono); font-size:9.5px; color:var(--ink-2); white-space:nowrap; background:var(--card); padding:0 3px; }
+.gantt-legend{ display:flex; flex-wrap:wrap; gap:16px; margin-top:16px; font-size:12px; color:var(--muted); }
+.gantt-legend .lg-plan{ display:inline-block; width:16px; height:0; border-top:1.5px dashed var(--muted-2); vertical-align:middle; margin-right:5px; }
+.gantt-legend .lg-actual{ display:inline-block; width:16px; height:8px; border-radius:3px; vertical-align:middle; margin-right:5px; }
+
+/* ============ SITE PHOTOS PAGE ============ */
+.photo-filter-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+.photo-zone-head{ display:flex; align-items:baseline; justify-content:space-between; margin:22px 0 12px; flex-wrap:wrap; gap:6px; }
+.photo-zone-head:first-child{ margin-top:0; }
+.photo-zone-title{ font-family:var(--font-display); font-weight:700; font-size:14.5px; display:flex; align-items:center; gap:8px; }
+.photo-zone-count{ font-size:12px; color:var(--muted); }
+.photo-grid{ display:grid; grid-template-columns:repeat(auto-fill,minmax(190px,1fr)); gap:14px; }
+.photo-card{ border-radius:12px; overflow:hidden; border:1px solid var(--border); background:var(--card); box-shadow:var(--shadow-card); }
+.photo-thumb{
+  height:130px; position:relative; display:flex; align-items:center; justify-content:center;
+  color:rgba(255,255,255,.85);
+}
+.photo-thumb svg{ width:26px; height:26px; opacity:.85; }
+.photo-thumb .ptag{ position:absolute; top:8px; left:8px; font-family:var(--font-mono); font-size:9.5px; background:rgba(28,43,54,.55); color:#fff; padding:2px 6px; border-radius:5px; }
+.photo-thumb .pdate{ position:absolute; bottom:8px; right:8px; font-family:var(--font-mono); font-size:9.5px; background:rgba(28,43,54,.55); color:#fff; padding:2px 6px; border-radius:5px; }
+.photo-meta{ padding:10px 12px; }
+.photo-meta .cap{ font-size:12.5px; font-weight:600; color:var(--ink); line-height:1.4; }
+.photo-meta .sub{ font-size:11px; color:var(--muted-2); margin-top:3px; font-family:var(--font-mono); }
+.pt-1{ background:linear-gradient(135deg,#0B4F6C,#3E8AA0); }
+.pt-2{ background:linear-gradient(135deg,#1B7A43,#4FA974); }
+.pt-3{ background:linear-gradient(135deg,#B5650D,#DA9142); }
+.pt-4{ background:linear-gradient(135deg,#33454F,#5B6B72); }
+.pt-5{ background:linear-gradient(135deg,#B23A32,#D06A5E); }
+.pt-6{ background:linear-gradient(135deg,#0E7C86,#4CA7AF); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ LOGIN ============================================================ -->
+<div id="view-login">
+  <div class="login-shell">
+    <div class="login-aside">
+      <div>
+        <div class="brand-row">
+          <div class="brand-mark">EP</div>
+          <div>
+            <div class="brand-name">EPS Dashboard</div>
+            <div class="brand-sub">QCD Monitoring System</div>
+          </div>
+        </div>
+        <div class="login-headline">ติดตามคุณภาพงานก่อสร้าง<br/>แบบเรียลไทม์จากทุกไซต์งาน</div>
+        <div class="login-copy">Quality · Cost · Delivery — Single source of truth ที่ sync ข้อมูลมาจาก ConZol Document Management โดยตรง ออกแบบมาให้ทีมหน้างานและผู้บริหารใช้ร่วมกันได้</div>
+        <div class="qcd-pills">
+          <span class="qcd-pill active">Q · Quality</span>
+          <span class="qcd-pill">C · Cost</span>
+          <span class="qcd-pill">D · Delivery</span>
+        </div>
+      </div>
+      <div class="login-foot">
+        <span>© 2026 EPS SYSTEM SOLUTIONS</span>
+        <span>SYNCED WITH CONZOL DMS</span>
+      </div>
+    </div>
+
+    <div class="login-form-wrap">
+      <div class="eyebrow">Sign in · เข้าสู่ระบบ</div>
+      <div class="login-title">ยินดีต้อนรับกลับมา</div>
+      <div class="login-sub">Welcome back — กรอกโปรเจคและข้อมูลเข้าสู่ระบบของคุณ</div>
+
+      <div class="field">
+        <label>รหัสโครงการ · Project</label>
+        <select class="input">
+          <option>SKK-IM-CM-26002 — Satellite Burner KK4</option>
+          <option>STS-CN-PP-26001 — 9.9 Biomass Power Plant</option>
+          <option>SLP-IM-CM-26004 — Solar Roof</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>อีเมล · Email</label>
+        <input class="input" type="email" placeholder="name@eps.com" />
+      </div>
+      <div class="field">
+        <label>รหัสผ่าน · Password</label>
+        <input class="input" type="password" placeholder="••••••••••" />
+      </div>
+
+      <button class="btn btn-primary" onclick="goProjects()">เข้าสู่ระบบ · Sign in</button>
+
+      <div class="divider-row"><span class="line"></span>หรือ · or<span class="line"></span></div>
+
+      <button class="btn btn-outline" onclick="goProjects()">ทดลองดู Demo Dashboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============================================================ ALL PROJECTS OVERVIEW ============================================================ -->
+<div id="view-projects" class="hidden">
+
+  <header class="pnav">
+    <div class="pnav-left">
+      <div class="brand-mark" style="background:var(--primary);color:#fff">EP</div>
+      <div>
+        <div class="brand-name" style="font-size:15px">EPS Dashboard</div>
+        <div class="brand-sub" style="font-size:10.5px">QCD Monitoring System</div>
+      </div>
+      <div class="hub-select" style="margin-left:14px">
+        <span class="hub-ico">SCG</span>
+        Engineering Operations
+        <svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-box" style="width:220px">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.3-4.3"/></svg>
+        <input placeholder="ค้นหาโปรเจค... Search project" />
+      </div>
+      <button class="icon-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span class="ping"></span></button>
+      <div class="avatar" style="width:34px;height:34px">PS</div>
+      <button class="icon-btn" onclick="goLogin()" title="ออกจากระบบ">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main class="projects-content">
+
+    <div style="margin-bottom:20px">
+      <div class="page-h1">ภาพรวมทุกโปรเจค · All Projects</div>
+      <div class="page-h1-sub">Overview / My Console — เลือกโปรเจคเพื่อดูแดชบอร์ดคุณภาพแบบละเอียด · Select a project to open its full Quality dashboard</div>
+    </div>
+
+    <!-- summary + status -->
+    <div class="grid section">
+      <div class="col-4 card">
+        <div class="card-title" style="margin-bottom:12px">สรุปโปรเจค · Projects Summary</div>
+        <div style="display:flex;flex-direction:column;gap:10px">
+          <div class="stat-box"><div class="lbl">All Projects</div><div class="val">8</div></div>
+          <div class="stat-box"><div class="lbl">Finished</div><div class="val" style="color:var(--muted-2)">2</div></div>
+          <div class="stat-box"><div class="lbl">Ongoing</div><div class="val" style="color:var(--primary)">6</div></div>
+        </div>
+      </div>
+
+      <div class="col-8 card">
+        <div class="card-head"><div><div class="card-title">โปรเจคที่กำลังดำเนินการ · Ongoing Projects</div><div class="card-sub">สถานะเทียบแผนงาน (Actual vs Plan Baseline)</div></div><span class="doctype-tag">6 of 8</span></div>
+
+        <div class="status-row">
+          <div class="status-row-top"><span><span class="nm">Ahead</span><span class="sub">Actual &gt; Plan</span></span><span class="ct">1 of 6</span></div>
+          <div class="status-track"><div class="status-fill" style="width:17%;background:var(--primary)"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-row-top"><span><span class="nm">On Plan</span><span class="sub">Actual ≈ Plan</span></span><span class="ct">2 of 6</span></div>
+          <div class="status-track"><div class="status-fill" style="width:33%;background:var(--success)"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-row-top"><span><span class="nm">At Risk</span><span class="sub">Actual &lt; Plan 5–14%</span></span><span class="ct">2 of 6</span></div>
+          <div class="status-track"><div class="status-fill" style="width:33%;background:var(--warning)"></div></div>
+        </div>
+        <div class="status-row">
+          <div class="status-row-top"><span><span class="nm">Delay</span><span class="sub">Actual &lt; Plan 15%+</span></span><span class="ct">1 of 6</span></div>
+          <div class="status-track"><div class="status-fill" style="width:17%;background:var(--danger)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- map -->
+    <div class="section">
+      <div class="section-head">
+        <div><div class="section-title"><span class="sw" style="background:var(--primary)"></span>ตำแหน่งโปรเจค · Locations</div><div class="section-en">คลิกที่หมุดเพื่อเปิดโปรเจค · Click a pin to open that project</div></div>
+      </div>
+      <div class="card">
+        <div class="map-wrap">
+          <iframe src="https://www.google.com/maps?q=Thailand&z=6&output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+
+          <button class="map-pin st-atrisk" style="top:55%;left:44%" onclick="openProject('SKK-IM-CM-26002')" title="Satellite Burner KK4 · Saraburi">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">SKK4 · At Risk</span>
+          </button>
+          <button class="map-pin st-onplan" style="top:48%;left:52%" onclick="openProject('STS-CN-PP-26001')" title="9.9 Biomass Power Plant · Nakhon Ratchasima">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">Biomass · On Plan</span>
+          </button>
+          <button class="map-pin st-ahead" style="top:70%;left:53%" onclick="openProject('SLP-IM-CM-26004')" title="Solar Roof · Rayong">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">Solar Roof · Ahead</span>
+          </button>
+          <button class="map-pin st-finished" style="top:56%;left:41%" onclick="openProject('RM2-IM-CM-25911')" title="Air Seal Roller RM2 · Saraburi">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">RM2 · Finished</span>
+          </button>
+          <button class="map-pin st-finished" style="top:38%;left:55%" onclick="openProject('RM4-IM-CM-25988')" title="Air Seal Roller RM4 · Khon Kaen">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">RM4 · Finished</span>
+          </button>
+          <button class="map-pin st-delay" style="top:66%;left:48%" onclick="openProject('KRR-CN-WH-26010')" title="Warehouse Extension · Chonburi">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">Warehouse · Delay</span>
+          </button>
+          <button class="map-pin st-onplan" style="top:18%;left:30%" onclick="openProject('PTW-IM-EL-26015')" title="Electrical Substation Upgrade · Chiang Mai">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">Substation · On Plan</span>
+          </button>
+          <button class="map-pin st-atrisk" style="top:60%;left:42%" onclick="openProject('BNK-CN-OF-26020')" title="Office Retrofit · Bangkok">
+            <span class="pin-pulse"></span><span class="pin-dot"></span><span class="pin-tag">Office · At Risk</span>
+          </button>
+        </div>
+        <div class="map-legend">
+          <span class="legend-item"><span class="legend-dot" style="background:var(--primary)"></span>Ahead</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>On Plan</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span>At Risk</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--danger)"></span>Delay</span>
+          <span class="legend-item"><span class="legend-dot" style="background:var(--muted-2)"></span>Finished</span>
+        </div>
+        <div style="font-size:11px;color:var(--muted-2);margin-top:10px">
+          หมุดแสดงตำแหน่งโดยประมาณเพื่อการนำเสนอ (mock-up) · เวอร์ชันจริงจะพล็อตพิกัดแม่นยำด้วย Google Maps JavaScript API
+        </div>
+      </div>
+    </div>
+
+    <!-- project grid -->
+    <div class="section">
+      <div class="section-head">
+        <div><div class="section-title"><span class="sw" style="background:var(--ink)"></span>รายชื่อโปรเจคทั้งหมด · All Projects</div><div class="section-en">8 projects · คลิกการ์ดเพื่อเปิดแดชบอร์ด</div></div>
+        <div class="filter-row">
+          <span class="chip-filter on">ทั้งหมด · All</span>
+          <span class="chip-filter">Ongoing</span>
+          <span class="chip-filter">At Risk</span>
+          <span class="chip-filter">Finished</span>
+        </div>
+      </div>
+
+      <div class="grid">
+
+        <div class="col-3 proj-card st-atrisk" onclick="openProject('SKK-IM-CM-26002')">
+          <span class="pill pill-warning" style="position:absolute;top:14px;right:14px">At Risk</span>
+          <div class="proj-code">SKK-IM-CM-26002</div>
+          <div class="proj-name">Satellite Burner KK4</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Saraburi</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="53" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="44" data-color="var(--warning)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-onplan" onclick="openProject('STS-CN-PP-26001')">
+          <span class="pill pill-success" style="position:absolute;top:14px;right:14px">On Plan</span>
+          <div class="proj-code">STS-CN-PP-26001</div>
+          <div class="proj-name">9.9 Biomass Power Plant</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Nakhon Ratchasima</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="61" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="60" data-color="var(--success)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-ahead" onclick="openProject('SLP-IM-CM-26004')">
+          <span class="pill pill-info" style="position:absolute;top:14px;right:14px">Ahead</span>
+          <div class="proj-code">SLP-IM-CM-26004</div>
+          <div class="proj-name">Solar Roof</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Rayong</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="40" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="52" data-color="var(--primary)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-delay" onclick="openProject('KRR-CN-WH-26010')">
+          <span class="pill pill-danger" style="position:absolute;top:14px;right:14px">Delay</span>
+          <div class="proj-code">KRR-CN-WH-26010</div>
+          <div class="proj-name">Warehouse Extension</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Chonburi</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="45" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="26" data-color="var(--danger)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-onplan" onclick="openProject('PTW-IM-EL-26015')">
+          <span class="pill pill-success" style="position:absolute;top:14px;right:14px">On Plan</span>
+          <div class="proj-code">PTW-IM-EL-26015</div>
+          <div class="proj-name">Electrical Substation Upgrade</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Chiang Mai</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="30" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="29" data-color="var(--success)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-atrisk" onclick="openProject('BNK-CN-OF-26020')">
+          <span class="pill pill-warning" style="position:absolute;top:14px;right:14px">At Risk</span>
+          <div class="proj-code">BNK-CN-OF-26020</div>
+          <div class="proj-name">Office Retrofit</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Bangkok</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="70" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="58" data-color="var(--warning)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-finished" onclick="openProject('RM2-IM-CM-25911')">
+          <span class="pill pill-muted" style="position:absolute;top:14px;right:14px">Finished</span>
+          <div class="proj-code">RM2-IM-CM-25911</div>
+          <div class="proj-name">Air Seal Roller RM2</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Saraburi</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="100" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="100" data-color="var(--success)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+        <div class="col-3 proj-card st-finished" onclick="openProject('RM4-IM-CM-25988')">
+          <span class="pill pill-muted" style="position:absolute;top:14px;right:14px">Finished</span>
+          <div class="proj-code">RM4-IM-CM-25988</div>
+          <div class="proj-name">Air Seal Roller RM4</div>
+          <div class="proj-loc"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a2 2 0 01-2.828 0l-4.243-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>Khon Kaen</div>
+          <div class="proj-rings">
+            <div class="rc"><div class="ring" data-value="100" data-color="var(--muted-2)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Plan</span></div>
+            <div class="rc"><div class="ring" data-value="100" data-color="var(--success)"><svg viewBox="0 0 56 56"><circle class="ring-track" cx="28" cy="28" r="24"/><circle class="ring-fill" cx="28" cy="28" r="24"/></svg><span class="ring-label"></span></div><span class="rc-lbl">Actual</span></div>
+          </div>
+          <div class="proj-open">เปิดโปรเจค · Open <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="footer-note">EPS Dashboard — Portfolio Overview · ข้อมูลจำลองเพื่อการนำเสนอ · แผนที่จาก Google Maps</div>
+  </main>
+</div>
+
+<!-- ============================================================ DASHBOARD ============================================================ -->
+<div id="view-dashboard" class="hidden">
+
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-brand">
+      <div class="brand-mark">EP</div>
+      <div>
+        <div class="brand-name">EPS Dashboard</div>
+        <div class="brand-sub">QCD System</div>
+      </div>
+    </div>
+
+    <div class="project-chip">
+      <div class="lbl">Active Project</div>
+      <div class="name" id="pcName">Satellite Burner KK4</div>
+      <div class="code" id="pcCode">SKK-IM-CM-26002</div>
+    </div>
+
+    <nav class="nav">
+      <button class="nav-item" onclick="goProjects()">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M3 7l9-4 9 4-9 4-9-4zm0 5l9 4 9-4M3 17l9 4 9-4"/></svg>
+        โปรเจคทั้งหมด <span style="color:var(--muted-2);font-size:11px;margin-left:auto">All Projects</span>
+      </button>
+      <div class="nav-label">Menu</div>
+      <button class="nav-item" data-page="overview" onclick="showPage('overview',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h7"/></svg>
+        ภาพรวม <span style="color:var(--muted-2);font-size:11px;margin-left:auto">Overview</span>
+      </button>
+      <button class="nav-item active" data-page="quality" onclick="showPage('quality',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5-2v7a9 9 0 11-18 0V8l9-5 9 5z"/></svg>
+        คุณภาพ
+        <span class="dot"></span>
+      </button>
+      <button class="nav-item" data-page="cost" onclick="showPage('cost',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2m0-8V6m0 10v2m0-12c1.1 0 2.1.4 2.8 1M9.2 15c.7.6 1.7 1 2.8 1"/></svg>
+        ต้นทุน
+      </button>
+      <button class="nav-item" data-page="delivery" onclick="showPage('delivery',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+        ความคืบหน้า <span style="color:var(--muted-2);font-size:11px;margin-left:auto">Progress</span>
+      </button>
+      <button class="nav-item" data-page="photos" onclick="showPage('photos',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+        รูปภาพหน้างาน <span style="color:var(--muted-2);font-size:11px;margin-left:auto">Site Photos</span>
+      </button>
+      <button class="nav-item" data-page="documents" onclick="showPage('documents',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        เอกสาร (ConZol)
+      </button>
+      <div class="nav-label">System</div>
+      <button class="nav-item" data-page="admin" onclick="showPage('admin',this)">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="3"/><path stroke-linecap="round" stroke-linejoin="round" d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.65 1.65 0 004.6 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 112.83-2.83l.06.06A1.65 1.65 0 009 4.6a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09c0 .68.39 1.28 1 1.51.6.23 1.32.11 1.82-.33l.06-.06a2 2 0 112.83 2.83l-.06.06c-.44.5-.56 1.22-.33 1.82.23.61.83 1 1.51 1H21a2 2 0 010 4h-.09c-.68 0-1.28.39-1.51 1z"/></svg>
+        ผู้ดูแลระบบ
+      </button>
+    </nav>
+
+    <div class="sidebar-user">
+      <div class="avatar">PS</div>
+      <div class="user-meta">
+        <div class="u-name">Pitchayapay S.</div>
+        <div class="u-role">Project QA Lead</div>
+      </div>
+      <button class="icon-btn" style="margin-left:auto;width:30px;height:30px;border:none" onclick="goLogin()" title="ออกจากระบบ">
+        <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg>
+      </button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="topbar">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="icon-btn hamburger" onclick="document.getElementById('sidebar').classList.toggle('open')">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+        <div class="breadcrumb">
+          <span>ConZol Sync</span><span class="sep">/</span>
+          <b class="mono" id="crumbProject">SKK-IM-CM-26002</b><span class="sep">/</span>
+          <span class="tag-current" id="crumbCurrent">คุณภาพ · Quality</span>
+        </div>
+      </div>
+      <div class="topbar-right">
+        <div class="search-box">
+          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="7"/><path stroke-linecap="round" d="M21 21l-4.3-4.3"/></svg>
+          <input placeholder="ค้นหาเอกสาร... Search" />
+        </div>
+        <span class="sync-chip"><span class="sync-dot"></span> Synced 09:35</span>
+        <button class="icon-btn"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 10-12 0v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg><span class="ping"></span></button>
+        <div class="avatar" style="width:34px;height:34px">PS</div>
+      </div>
+    </header>
+
+    <main class="content">
+
+      <div class="note-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7v10c0 1.1 3.6 2 8 2s8-.9 8-2V7M4 7c0 1.1 3.6 2 8 2s8-.9 8-2M4 7c0-1.1 3.6-2 8-2s8 .9 8 2m0 5c0 1.1-3.6 2-8 2s-8-.9-8-2"/></svg>
+        <p>
+          <b>ที่มาของข้อมูล:</b> ดึงจาก ConZol Document Register (<span class="mono">NCR / RFA / RIN / QCR / ITP / FAT / SAT / PL</span>) sync ทุก 15 นาที
+          <span class="note-en">Data source: ConZol Document Register, synced every 15 min · Showing 1 of 35 active projects.</span>
+        </p>
+      </div>
+
+      <!-- ================= OVERVIEW PAGE ================= -->
+      <section class="page" id="page-overview">
+        <div class="section-head">
+          <div>
+            <div class="section-title"><span class="sw" style="background:var(--ink)"></span>ภาพรวมโครงการ</div>
+            <div class="section-en">Project overview — Q · C · D at a glance</div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="col-4 card">
+            <div class="kpi-top"><div class="kpi-ico bg-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5-2v7a9 9 0 11-18 0V8l9-5 9 5z"/></svg>
+            </div><span class="pill pill-warning">High risk</span></div>
+            <div class="kpi-label">Q · คะแนนคุณภาพ <span class="kpi-label-en">Quality Score</span></div>
+            <div class="kpi-value">89.6</div>
+          </div>
+          <div class="col-4 card">
+            <div class="kpi-top"><div class="kpi-ico bg-success">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2m0-8V6m0 10v2"/></svg>
+            </div><span class="pill pill-success">On budget</span></div>
+            <div class="kpi-label">C · ต้นทุนสะสม <span class="kpi-label-en">Cost to date</span></div>
+            <div class="kpi-value">฿48.2M</div>
+          </div>
+          <div class="col-4 card">
+            <div class="kpi-top"><div class="kpi-ico bg-danger">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+            </div><span class="pill pill-danger">-9.63%</span></div>
+            <div class="kpi-label">D · ความคืบหน้า <span class="kpi-label-en">Progress vs plan</span></div>
+            <div class="kpi-value">43.8%</div>
+          </div>
+        </div>
+        <div class="grid" style="margin-top:16px">
+          <div class="col-6 card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+            <div>
+              <div class="card-title">ดู NCR / RFA / ITP / Punch List ทั้งหมด</div>
+              <div class="card-sub">Open the Quality page for the full breakdown</div>
+            </div>
+            <button class="btn btn-primary" style="width:auto" onclick="showPage('quality', document.querySelector('[data-page=quality]'))">หน้าคุณภาพ · Quality →</button>
+          </div>
+          <div class="col-6 card" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px">
+            <div>
+              <div class="card-title">ดู S-Curve / Gantt / Milestone ทั้งหมด</div>
+              <div class="card-sub">Open the Progress page for schedule detail</div>
+            </div>
+            <button class="btn btn-primary" style="width:auto" onclick="showPage('delivery', document.querySelector('[data-page=delivery]'))">หน้าความคืบหน้า · Progress →</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= QUALITY PAGE ================= -->
+      <section class="page active" id="page-quality">
+
+        <!-- project header + gauge -->
+        <div class="grid section">
+          <div class="col-8 card">
+            <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px">
+              <div>
+                <div class="doctype-tag" id="qDocCode" style="color:var(--primary);border-color:var(--primary-100);background:var(--primary-50)">SKK-IM-CM-26002</div>
+                <h1 id="qProjName" style="font-family:var(--font-display);font-size:22px;font-weight:800;margin:8px 0 2px">Satellite Burner KK4</h1>
+                <div style="color:var(--muted);font-size:13px">Owner: SKK · Main Contractor: EPS · Consultant: STS · Phase: Implement (IM)</div>
+                <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:12px">
+                  <span class="pill pill-info">Execution Phase</span>
+                  <span class="pill pill-warning" id="qNcrPill">3 NCR รอปิด</span>
+                  <span class="pill pill-muted">01 Feb – 18 Jun 2026</span>
+                </div>
+              </div>
+              <div style="display:flex;gap:22px">
+                <div>
+                  <div style="font-family:var(--font-display);font-size:24px;font-weight:800">71</div>
+                  <div style="font-size:11.5px;color:var(--muted)">เอกสารคุณภาพ<br/><span style="color:var(--muted-2)">Q docs</span></div>
+                </div>
+                <div>
+                  <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--success)">58</div>
+                  <div style="font-size:11.5px;color:var(--muted)">ปิดแล้ว<br/><span style="color:var(--muted-2)">Closed</span></div>
+                </div>
+                <div>
+                  <div style="font-family:var(--font-display);font-size:24px;font-weight:800;color:var(--danger)">13</div>
+                  <div style="font-size:11.5px;color:var(--muted)">เปิดอยู่<br/><span style="color:var(--muted-2)">Open</span></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4 card" style="display:flex;flex-direction:column;align-items:center;justify-content:center">
+            <div class="card-sub" style="text-align:center;margin-bottom:4px">คะแนนคุณภาพ · Quality Score</div>
+            <svg viewBox="0 0 200 120" width="190">
+              <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="#EAE6DC" stroke-width="14" stroke-linecap="round"/>
+              <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="24"/>
+              <defs>
+                <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stop-color="#1B7A43"/>
+                  <stop offset="100%" stop-color="#0B4F6C"/>
+                </linearGradient>
+              </defs>
+              <text x="100" y="88" text-anchor="middle" class="gauge-num">89.6</text>
+              <text x="100" y="106" text-anchor="middle" class="gauge-lbl">จาก 100 คะแนน · out of 100</text>
+            </svg>
+            <span class="pill pill-success" style="margin-top:4px">ดีขึ้น +2.1 pts MoM</span>
+          </div>
+        </div>
+
+        <!-- quick strip -->
+        <div class="grid section">
+          <div class="col-3 card kpi">
+            <div class="kpi-top"><div class="kpi-ico bg-danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14.14A1 1 0 003 19h18a1 1 0 00.87-1.5L13.7 3.86a1 1 0 00-1.72 0z"/></svg></div></div>
+            <div class="kpi-label">NCR เปิดอยู่ <span class="kpi-label-en">Open NCR</span></div>
+            <div class="kpi-value">3</div>
+            <span class="kpi-trend trend-down">▼ 2 WoW</span>
+          </div>
+          <div class="col-3 card kpi">
+            <div class="kpi-top"><div class="kpi-ico bg-warning"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg></div></div>
+            <div class="kpi-label">RFA/RFI ค้าง <span class="kpi-label-en">Pending RFA/RFI</span></div>
+            <div class="kpi-value">8</div>
+            <span class="kpi-trend trend-flat">2 เกิน SLA</span>
+          </div>
+          <div class="col-3 card kpi">
+            <div class="kpi-top"><div class="kpi-ico bg-info"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5-2v7a9 9 0 11-18 0V8l9-5 9 5z"/></svg></div></div>
+            <div class="kpi-label">ITP ตรวจแล้ว <span class="kpi-label-en">ITP completed</span></div>
+            <div class="kpi-value">81.3%</div>
+            <span class="kpi-trend trend-up">▲ 4.2% MoM</span>
+          </div>
+          <div class="col-3 card kpi">
+            <div class="kpi-top"><div class="kpi-ico bg-primary"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M9 11l3 3L22 4M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div></div>
+            <div class="kpi-label">Punch List เปิด <span class="kpi-label-en">Open punch items</span></div>
+            <div class="kpi-value">21</div>
+            <span class="kpi-trend trend-down">▼ 34 closed MTD</span>
+          </div>
+        </div>
+
+        <!-- NCR -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--danger)"></span>NCR — รายงานความไม่สอดคล้อง</div>
+              <div class="section-en">Non-Conformance Report · Doc Type = <span class="mono">NCR</span></div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="col-3 card kpi"><div class="kpi-label">NCR ทั้งหมด <span class="kpi-label-en">Total NCR</span></div><div class="kpi-value">14</div></div>
+            <div class="col-3 card kpi"><div class="kpi-label">เปิดอยู่ <span class="kpi-label-en">Open</span></div><div class="kpi-value" style="color:var(--danger)">3</div></div>
+            <div class="col-3 card kpi"><div class="kpi-label">อนุมัติแบบมีเงื่อนไข <span class="kpi-label-en">Approved w/ comment</span></div><div class="kpi-value" style="color:var(--warning)">2</div></div>
+            <div class="col-3 card kpi"><div class="kpi-label">ปิดแล้ว <span class="kpi-label-en">Closed</span></div><div class="kpi-value" style="color:var(--success)">9</div></div>
+
+            <div class="col-5 card">
+              <div class="card-head"><div><div class="card-title">NCR ตาม Discipline</div><div class="card-sub">NCR count by discipline</div></div></div>
+              <div class="bar-row"><span class="bar-label">Civil</span><div class="bar-track"><div class="bar-fill" style="width:78%;background:var(--primary)"></div></div><span class="bar-value">5</span></div>
+              <div class="bar-row"><span class="bar-label">Mechanical</span><div class="bar-track"><div class="bar-fill" style="width:56%;background:var(--info)"></div></div><span class="bar-value">4</span></div>
+              <div class="bar-row"><span class="bar-label">Electrical</span><div class="bar-track"><div class="bar-fill" style="width:31%;background:var(--warning)"></div></div><span class="bar-value">2</span></div>
+              <div class="bar-row"><span class="bar-label">Piping</span><div class="bar-track"><div class="bar-fill" style="width:47%;background:var(--success)"></div></div><span class="bar-value">3</span></div>
+              <div class="bar-row"><span class="bar-label">Civil - Foundation</span><div class="bar-track"><div class="bar-fill" style="width:16%;background:var(--danger)"></div></div><span class="bar-value">1</span></div>
+            </div>
+
+            <div class="col-7 card">
+              <div class="card-head"><div><div class="card-title">NCR Log ล่าสุด</div><div class="card-sub">Latest NCR log</div></div></div>
+              <div class="tbl-wrap"><table class="tbl">
+                <thead><tr><th>Doc No.</th><th>WBS</th><th>Progress</th><th>Return</th><th>อัปเดต</th></tr></thead>
+                <tbody>
+                  <tr><td class="mono">NCR-0042</td><td style="color:var(--muted)">Crusher Area</td><td><span class="pill pill-warning">IFA</span></td><td><span class="pill pill-danger">C</span></td><td style="color:var(--muted)">10 Jul</td></tr>
+                  <tr><td class="mono">NCR-0039</td><td style="color:var(--muted)">Raw Mill</td><td><span class="pill pill-warning">IFA</span></td><td><span class="pill pill-warning">AC</span></td><td style="color:var(--muted)">08 Jul</td></tr>
+                  <tr><td class="mono">NCR-0035</td><td style="color:var(--muted)">Foundation</td><td><span class="pill pill-success">IFC</span></td><td><span class="pill pill-success">A</span></td><td style="color:var(--muted)">02 Jul</td></tr>
+                  <tr><td class="mono">NCR-0031</td><td style="color:var(--muted)">Crusher Area</td><td><span class="pill pill-danger">IFR</span></td><td><span class="pill pill-danger">C</span></td><td style="color:var(--muted)">28 Jun</td></tr>
+                </tbody>
+              </table></div>
+              <div style="font-size:11px;color:var(--muted-2);margin-top:10px">Return Code: A = Approved · AC = Approved with Comment · C = Revise &amp; Resubmit</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RFA/RFI -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--warning)"></span>RFA &amp; RFI</div>
+              <div class="section-en">Request for Action / Information · Doc Type = <span class="mono">RFA</span>, <span class="mono">RIN</span></div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="col-3 card kpi"><div class="kpi-label">RFA เปิดอยู่ <span class="kpi-label-en">Open RFA</span></div><div class="kpi-value" style="color:var(--danger)">5</div><span class="kpi-trend trend-flat">รอ Site Manager</span></div>
+            <div class="col-3 card kpi"><div class="kpi-label">RFI เปิดอยู่ <span class="kpi-label-en">Open RFI</span></div><div class="kpi-value" style="color:var(--warning)">3</div><span class="kpi-trend trend-flat">รอ Consultant</span></div>
+            <div class="col-3 card kpi"><div class="kpi-label">เกินกำหนดตอบ <span class="kpi-label-en">Overdue</span></div><div class="kpi-value" style="color:var(--danger)">2</div><span class="kpi-trend trend-flat">SLA 7 วัน</span></div>
+            <div class="col-3 card kpi"><div class="kpi-label">เวลาตอบเฉลี่ย <span class="kpi-label-en">Avg. response</span></div><div class="kpi-value">4.6<span style="font-size:14px;color:var(--muted)"> วัน</span></div></div>
+
+            <div class="col-12 card">
+              <div class="card-head"><div><div class="card-title">RFA / RFI ที่เปิดอยู่</div><div class="card-sub">Open RFA / RFI list</div></div></div>
+              <div class="tbl-wrap"><table class="tbl">
+                <thead><tr><th>Doc No.</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้ส่ง → ผู้รับ</th><th>ส่งเมื่อ</th><th>Due</th><th>สถานะ</th></tr></thead>
+                <tbody>
+                  <tr><td class="mono">RFA-0118</td><td style="color:var(--muted)">RFA</td><td>ขออนุมัติเปลี่ยนวิธีเชื่อมท่อ Raw Mill</td><td class="mono" style="color:var(--muted);font-size:11px">KRR → EPS</td><td style="color:var(--muted)">10 Jul</td><td style="color:var(--danger);font-weight:600">เกิน 2 วัน</td><td><span class="pill pill-danger">Overdue</span></td></tr>
+                  <tr><td class="mono">RIN-0203</td><td style="color:var(--muted)">RFI</td><td>สอบถามสเปควาล์วในแบบ P&amp;ID</td><td class="mono" style="color:var(--muted);font-size:11px">EPS → STS</td><td style="color:var(--muted)">12 Jul</td><td style="color:var(--muted)">เหลือ 5 วัน</td><td><span class="pill pill-warning">Pending</span></td></tr>
+                  <tr><td class="mono">RFA-0116</td><td style="color:var(--muted)">RFA</td><td>ขอเทคอนกรีตฐานราก Foundation Zone B</td><td class="mono" style="color:var(--muted);font-size:11px">KRR → EPS</td><td style="color:var(--muted)">13 Jul</td><td style="color:var(--muted)">เหลือ 6 วัน</td><td><span class="pill pill-warning">Pending</span></td></tr>
+                </tbody>
+              </table></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ITP / FAT / SAT -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--info)"></span>ITP &amp; Acceptance Test</div>
+              <div class="section-en">Doc Type = <span class="mono">ITP</span>, <span class="mono">FAT</span>, <span class="mono">SAT</span>, <span class="mono">QCR</span></div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="col-3 card kpi"><div class="kpi-label">ITP ตามแผน <span class="kpi-label-en">Planned ITP</span></div><div class="kpi-value">96</div></div>
+            <div class="col-3 card kpi"><div class="kpi-label">ตรวจแล้ว <span class="kpi-label-en">Completed</span></div><div class="kpi-value" style="color:var(--success)">78</div><span class="kpi-trend trend-up">81.3% ของแผน</span></div>
+            <div class="col-3 card kpi"><div class="kpi-label">FAT ผ่าน <span class="kpi-label-en">FAT passed</span></div><div class="kpi-value" style="color:var(--success)">11/12</div></div>
+            <div class="col-3 card kpi"><div class="kpi-label">SAT ผ่าน <span class="kpi-label-en">SAT passed</span></div><div class="kpi-value" style="color:var(--warning)">4/8</div></div>
+
+            <div class="col-7 card">
+              <div class="card-head"><div><div class="card-title">ITP Progress ต่อ Discipline</div><div class="card-sub">ITP completion by discipline</div></div></div>
+              <div class="bar-row"><span class="bar-label">Civil</span><div class="bar-track"><div class="bar-fill" style="width:92%;background:var(--success)"></div></div><span class="bar-value">92%</span></div>
+              <div class="bar-row"><span class="bar-label">Mechanical</span><div class="bar-track"><div class="bar-fill" style="width:84%;background:var(--primary)"></div></div><span class="bar-value">84%</span></div>
+              <div class="bar-row"><span class="bar-label">Electrical</span><div class="bar-track"><div class="bar-fill" style="width:61%;background:var(--warning)"></div></div><span class="bar-value">61%</span></div>
+              <div class="bar-row"><span class="bar-label">Piping</span><div class="bar-track"><div class="bar-fill" style="width:73%;background:var(--info)"></div></div><span class="bar-value">73%</span></div>
+            </div>
+
+            <div class="col-5 card">
+              <div class="card-head"><div><div class="card-title">FAT / SAT Timeline</div><div class="card-sub">Test schedule status</div></div></div>
+              <div style="display:flex;flex-direction:column;gap:12px">
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span class="pill pill-success" style="width:64px;justify-content:center">FAT</span>
+                  <div class="bar-track" style="height:8px"><div class="bar-fill" style="width:92%;background:var(--success)"></div></div>
+                  <span style="font-size:11px;color:var(--muted);width:52px;text-align:right">11 / 12</span>
+                </div>
+                <div style="display:flex;align-items:center;gap:10px">
+                  <span class="pill pill-warning" style="width:64px;justify-content:center">SAT</span>
+                  <div class="bar-track" style="height:8px"><div class="bar-fill" style="width:50%;background:var(--warning)"></div></div>
+                  <span style="font-size:11px;color:var(--muted);width:52px;text-align:right">4 / 8</span>
+                </div>
+              </div>
+              <div style="font-size:11px;color:var(--muted-2);margin-top:16px;line-height:1.6">FAT = โรงงาน · Factory Acceptance Test &nbsp;·&nbsp; SAT = ไซต์งาน · Site Acceptance Test</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Punch list -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--success)"></span>Punch List</div>
+              <div class="section-en">Doc Type = <span class="mono">PL</span></div>
+            </div>
+          </div>
+          <div class="grid">
+            <div class="col-4 card kpi"><div class="kpi-label">เปิดอยู่ <span class="kpi-label-en">Open</span></div><div class="kpi-value" style="color:var(--danger)">21</div></div>
+            <div class="col-4 card kpi"><div class="kpi-label">ปิดแล้วเดือนนี้ <span class="kpi-label-en">Closed MTD</span></div><div class="kpi-value" style="color:var(--success)">34</div></div>
+            <div class="col-4 card kpi"><div class="kpi-label">เกินกำหนดปิด <span class="kpi-label-en">Overdue</span></div><div class="kpi-value" style="color:var(--warning)">6</div></div>
+
+            <div class="col-12 card">
+              <div class="card-head"><div><div class="card-title">Punch List ตามสถานะ &amp; WBS</div><div class="card-sub">Status by work-breakdown area</div></div></div>
+              <div class="bar-row"><span class="bar-label">Crusher Area</span><div class="bar-track">
+                <div class="bar-fill" style="width:30%;background:var(--success)"></div><div class="bar-fill" style="width:18%;background:var(--warning)"></div><div class="bar-fill" style="width:12%;background:var(--danger)"></div>
+              </div><span class="bar-value">20</span></div>
+              <div class="bar-row"><span class="bar-label">Raw Mill</span><div class="bar-track">
+                <div class="bar-fill" style="width:40%;background:var(--success)"></div><div class="bar-fill" style="width:10%;background:var(--warning)"></div>
+              </div><span class="bar-value">16</span></div>
+              <div class="bar-row"><span class="bar-label">Foundation</span><div class="bar-track">
+                <div class="bar-fill" style="width:22%;background:var(--success)"></div><div class="bar-fill" style="width:8%;background:var(--warning)"></div><div class="bar-fill" style="width:6%;background:var(--danger)"></div>
+              </div><span class="bar-value">12</span></div>
+              <div class="legend">
+                <span class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>ปิดแล้ว · Closed</span>
+                <span class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span>รอตรวจ · In review</span>
+                <span class="legend-item"><span class="legend-dot" style="background:var(--danger)"></span>เกินกำหนด · Overdue</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Document compliance -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--ink)"></span>Document Compliance &amp; Revision Control</div>
+              <div class="section-en">Revision ID: A, B, C… / 00, 01, 02… / As-Built Z0–Z9</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="grid" style="margin-bottom:18px">
+              <div class="col-3 kpi"><div class="kpi-label">ตอบทันเวลา <span class="kpi-label-en">On-time response</span></div><div class="kpi-value" style="color:var(--success)">92.1%</div></div>
+              <div class="col-3 kpi"><div class="kpi-label">Approved ครั้งแรก <span class="kpi-label-en">First-pass approval</span></div><div class="kpi-value" style="color:var(--primary)">64%</div></div>
+              <div class="col-3 kpi"><div class="kpi-label">ต้อง Resubmit <span class="kpi-label-en">Resubmission</span></div><div class="kpi-value" style="color:var(--danger)">11%</div></div>
+              <div class="col-3 kpi"><div class="kpi-label">รอตรวจ (IFR) <span class="kpi-label-en">Pending review</span></div><div class="kpi-value" style="color:var(--warning)">9</div></div>
+            </div>
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Document</th><th>Type</th><th>Discipline</th><th>Rev.</th><th>Return</th><th>Confirm</th></tr></thead>
+              <tbody>
+                <tr><td>Foundation Drawing — CV-001</td><td class="mono" style="color:var(--muted)">DWG</td><td style="color:var(--muted)">Civil</td><td class="mono">B</td><td><span class="pill pill-success">A</span></td><td style="color:var(--muted)">09 Jul</td></tr>
+                <tr><td>Conveyor Layout — ME-101</td><td class="mono" style="color:var(--muted)">DWG</td><td style="color:var(--muted)">Mechanical</td><td class="mono">02</td><td><span class="pill pill-warning">AC</span></td><td style="color:var(--muted)">07 Jul</td></tr>
+                <tr><td>Cable Routing Calculation — EE-CAL-014</td><td class="mono" style="color:var(--muted)">CAL</td><td style="color:var(--muted)">Electrical</td><td class="mono">A1</td><td><span class="pill pill-danger">C</span></td><td style="color:var(--muted)">04 Jul</td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <div class="footer-note">EPS Dashboard — Quality Module · ข้อมูลจำลองเพื่อการนำเสนอ · อ้างอิงโครงสร้างจากระบบ ConZol</div>
+      </section>
+
+      <!-- ================= COST PAGE (placeholder) ================= -->
+      <section class="page" id="page-cost">
+        <div class="section-head"><div><div class="section-title"><span class="sw" style="background:var(--success)"></span>ต้นทุน</div><div class="section-en">Cost dashboard</div></div></div>
+        <div class="coming">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.7 0-3 .9-3 2s1.3 2 3 2 3 .9 3 2-1.3 2-3 2m0-8V6m0 10v2"/></svg>
+          <h3>กำลังพัฒนา · Coming soon</h3>
+          <p>หน้าต้นทุน (Cash In/Out, Cost vs Baseline) จะแสดงในเวอร์ชันถัดไป</p>
+        </div>
+      </section>
+
+      <!-- ================= DELIVERY / PROGRESS PAGE ================= -->
+      <section class="page" id="page-delivery">
+        <div class="section-head">
+          <div>
+            <div class="section-title"><span class="sw" style="background:var(--info)"></span>ความคืบหน้า &amp; กำหนดการ</div>
+            <div class="section-en">Progress &amp; Schedule · S-Curve, Gantt, WBS Breakdown</div>
+          </div>
+          <span class="pill pill-danger">Schedule Variance -9.63%</span>
+        </div>
+
+        <!-- KPI strip -->
+        <div class="grid section">
+          <div class="col-3 card kpi">
+            <div class="kpi-label">ความคืบหน้าจริง <span class="kpi-label-en">Actual %complete</span></div>
+            <div class="kpi-value">43.8%</div>
+            <span class="kpi-trend trend-flat">Plan 53.4%</span>
+          </div>
+          <div class="col-3 card kpi">
+            <div class="kpi-label">Schedule Variance <span class="kpi-label-en">SV (Actual − Plan)</span></div>
+            <div class="kpi-value" style="color:var(--danger)">-9.6%</div>
+            <span class="kpi-trend trend-down">At Risk band</span>
+          </div>
+          <div class="col-3 card kpi">
+            <div class="kpi-label">ล่าช้ากว่าแผน <span class="kpi-label-en">Days behind</span></div>
+            <div class="kpi-value" style="color:var(--warning)">18<span style="font-size:14px;color:var(--muted)"> วัน</span></div>
+            <span class="kpi-trend trend-flat">เทียบ Baseline</span>
+          </div>
+          <div class="col-3 card kpi">
+            <div class="kpi-label">คาดแล้วเสร็จ <span class="kpi-label-en">Forecast finish</span></div>
+            <div class="kpi-value" style="font-size:20px">15 ต.ค. 26</div>
+            <span class="kpi-trend trend-down">เดิม 18 มิ.ย. 26</span>
+          </div>
+        </div>
+
+        <!-- S-Curve -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--primary)"></span>S-Curve — Plan vs Actual vs Forecast</div>
+              <div class="section-en">Cumulative progress curve, baseline เทียบกับผลจริงและค่าคาดการณ์</div>
+            </div>
+          </div>
+          <div class="card blueprint-card">
+            <div class="scurve-wrap">
+              <svg viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
+                <!-- grid -->
+                <g class="scurve-grid">
+                  <line x1="40" y1="20" x2="40" y2="230"/>
+                  <line x1="40" y1="230" x2="740" y2="230"/>
+                  <line x1="40" y1="170" x2="740" y2="170"/>
+                  <line x1="40" y1="110" x2="740" y2="110"/>
+                  <line x1="40" y1="50" x2="740" y2="50"/>
+                  <line x1="127.5" y1="20" x2="127.5" y2="230"/>
+                  <line x1="215" y1="20" x2="215" y2="230"/>
+                  <line x1="302.5" y1="20" x2="302.5" y2="230"/>
+                  <line x1="390" y1="20" x2="390" y2="230"/>
+                  <line x1="477.5" y1="20" x2="477.5" y2="230"/>
+                  <line x1="565" y1="20" x2="565" y2="230"/>
+                  <line x1="652.5" y1="20" x2="652.5" y2="230"/>
+                  <line x1="740" y1="20" x2="740" y2="230"/>
+                </g>
+                <!-- y labels -->
+                <text x="32" y="234" text-anchor="end" class="scurve-axis-label">0%</text>
+                <text x="32" y="174" text-anchor="end" class="scurve-axis-label">50%</text>
+                <text x="32" y="114" text-anchor="end" class="scurve-axis-label">75%</text>
+                <text x="32" y="54" text-anchor="end" class="scurve-axis-label">100%</text>
+                <!-- x labels -->
+                <text x="40" y="248" class="scurve-axis-label">Feb</text>
+                <text x="127.5" y="248" class="scurve-axis-label">Mar</text>
+                <text x="215" y="248" class="scurve-axis-label">Apr</text>
+                <text x="302.5" y="248" class="scurve-axis-label">May</text>
+                <text x="390" y="248" class="scurve-axis-label">Jun</text>
+                <text x="477.5" y="248" class="scurve-axis-label">Jul</text>
+                <text x="565" y="248" class="scurve-axis-label">Aug</text>
+                <text x="652.5" y="248" class="scurve-axis-label">Sep</text>
+                <text x="712" y="248" class="scurve-axis-label">Oct</text>
+
+                <!-- actual area fill (up to today) -->
+                <path class="scurve-fill" d="M40,230 L40,210 L127.5,184 L215,144 L302.5,96 L390,132 L453,132.4 L453,230 Z"/>
+
+                <!-- plan (dashed, full baseline) -->
+                <path class="scurve-plan" d="M40,210 L127.5,184 L215,144 L302.5,96 L390,52 L477.5,28 L565,20 L652.5,20 L740,20"/>
+
+                <!-- actual solid (to today) -->
+                <path class="scurve-actual" d="M40,210 L127.5,184 L215,144 L302.5,96 L390,132 L453,132.4"/>
+
+                <!-- forecast (amber dashed, today -> completion) -->
+                <path class="scurve-forecast" d="M453,132.4 L565,84 L652.5,44 L740,20"/>
+
+                <!-- today marker -->
+                <line class="scurve-today-line" x1="453" y1="20" x2="453" y2="230"/>
+                <text x="458" y="30" class="scurve-axis-label" fill="var(--ink-2)">Today · 10 Jul</text>
+
+                <circle class="scurve-dot" cx="453" cy="132.4" r="4.5"/>
+              </svg>
+            </div>
+            <div class="legend" style="margin-top:6px">
+              <span class="legend-item"><span style="display:inline-block;width:16px;height:0;border-top:2.5px dashed var(--muted-2)"></span>&nbsp;Plan Baseline</span>
+              <span class="legend-item"><span style="display:inline-block;width:16px;height:3px;background:var(--primary);border-radius:2px"></span>&nbsp;Actual</span>
+              <span class="legend-item"><span style="display:inline-block;width:16px;height:0;border-top:2.5px dashed var(--warning)"></span>&nbsp;Forecast</span>
+            </div>
+            <div style="font-size:11px;color:var(--muted-2);margin-top:10px">
+              Baseline ยึดตามสัญญา (Contract Baseline Rev.0) · Forecast คำนวณจาก productivity rate เฉลี่ย 4 สัปดาห์ล่าสุด
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress by WBS -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--ink)"></span>ความคืบหน้าตาม WBS</div>
+              <div class="section-en">Plan vs Actual completion by work-breakdown area</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="bar-row"><span class="bar-label">Crusher Area</span><div class="bar-track" style="height:14px"><div class="bar-fill" style="width:62%;background:var(--muted-2)"></div></div><span class="bar-value">62%</span></div>
+            <div class="bar-row"><span class="bar-label"></span><div class="bar-track" style="height:14px"><div class="bar-fill" style="width:47%;background:var(--warning)"></div></div><span class="bar-value">47%</span></div>
+            <div class="bar-row"><span class="bar-label">Raw Mill</span><div class="bar-track" style="height:14px"><div class="bar-fill" style="width:58%;background:var(--muted-2)"></div></div><span class="bar-value">58%</span></div>
+            <div class="bar-row"><span class="bar-label"></span><div class="bar-track" style="height:14px"><div class="bar-fill" style="width:52%;background:var(--success)"></div></div><span class="bar-value">52%</span></div>
+            <div class="bar-row"><span class="bar-label">Foundation</span><div class="bar-track" style="height:14px"><div class="bar-fill" style="width:100%;background:var(--muted-2)"></div></div><span class="bar-value">100%</span></div>
+            <div class="bar-row"><span class="bar-label"></span><div class="bar-track" style="height:14px"><div class="bar-fill" style="width:100%;background:var(--success)"></div></div><span class="bar-value">100%</span></div>
+            <div class="legend">
+              <span class="legend-item"><span class="legend-dot" style="background:var(--muted-2)"></span>Plan</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--success)"></span>Actual — On/Ahead of plan</span>
+              <span class="legend-item"><span class="legend-dot" style="background:var(--warning)"></span>Actual — Behind plan</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gantt -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--warning)"></span>Gantt Chart — Activity Timeline</div>
+              <div class="section-en">Major activities · Plan bar (outline) vs Actual bar (solid)</div>
+            </div>
+          </div>
+          <div class="card gantt-wrap">
+            <div class="gantt-months">
+              <span>Feb</span><span>Mar</span><span>Apr</span><span>May</span><span>Jun</span><span>Jul</span><span>Aug</span><span>Sep</span><span>Oct</span>
+            </div>
+
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Sitework &amp; Foundation</div><div class="wbs">WBS-01 · Civil</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:0%;width:33.3%;border-color:var(--success)"></div>
+                <div class="gantt-actual-bar" style="left:0%;width:33.3%;background:var(--success)"></div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Civil Structure</div><div class="wbs">WBS-02 · Civil</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:11.1%;width:44.4%;border-color:var(--warning)"></div>
+                <div class="gantt-actual-bar" style="left:11.1%;width:47.9%;background:var(--warning)"></div>
+                <div class="gantt-today" style="left:59%"></div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Mechanical Installation</div><div class="wbs">WBS-03 · Mechanical</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:22.2%;width:44.4%;border-color:var(--warning)"></div>
+                <div class="gantt-actual-bar" style="left:33.3%;width:25.7%;background:var(--warning)"></div>
+                <div class="gantt-today" style="left:59%"></div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Electrical Installation</div><div class="wbs">WBS-04 · Electrical</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:33.3%;width:44.4%;border-color:var(--danger)"></div>
+                <div class="gantt-actual-bar" style="left:44.4%;width:14.6%;background:var(--danger)"></div>
+                <div class="gantt-today" style="left:59%"></div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Piping</div><div class="wbs">WBS-05 · Piping</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:22.2%;width:44.4%;border-color:var(--success)"></div>
+                <div class="gantt-actual-bar" style="left:22.2%;width:33.3%;background:var(--success)"></div>
+                <div class="gantt-today" style="left:59%"></div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Testing &amp; Commissioning</div><div class="wbs">WBS-06 · FAT / SAT</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:55.6%;width:33.3%;border-color:var(--muted-2)"></div>
+                <div class="gantt-today" style="left:59%"></div>
+              </div>
+            </div>
+            <div class="gantt-row">
+              <div class="gantt-label"><div class="nm">Punch List &amp; Handover</div><div class="wbs">WBS-07 · All</div></div>
+              <div class="gantt-track">
+                <div class="gantt-plan-bar" style="left:66.7%;width:33.3%;border-color:var(--muted-2)"></div>
+                <div class="gantt-today" style="left:59%"><span class="tag">Today</span></div>
+              </div>
+            </div>
+
+            <div class="gantt-legend">
+              <span><span class="lg-plan"></span>Plan (Baseline)</span>
+              <span><span class="lg-actual" style="background:var(--success)"></span>Actual — On plan</span>
+              <span><span class="lg-actual" style="background:var(--warning)"></span>Actual — At risk</span>
+              <span><span class="lg-actual" style="background:var(--danger)"></span>Actual — Delayed</span>
+              <span><span style="display:inline-block;width:0;height:12px;border-left:1.5px dashed var(--ink-2);vertical-align:middle;margin-right:5px"></span>Today</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Milestones -->
+        <div class="section">
+          <div class="section-head">
+            <div>
+              <div class="section-title"><span class="sw" style="background:var(--ink)"></span>Milestones</div>
+              <div class="section-en">Key contract milestones · Plan vs Forecast/Actual date</div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="tbl-wrap"><table class="tbl">
+              <thead><tr><th>Milestone</th><th>WBS</th><th>Plan Date</th><th>Forecast / Actual</th><th>สถานะ</th></tr></thead>
+              <tbody>
+                <tr><td>Foundation Complete</td><td style="color:var(--muted)">Civil</td><td class="mono">30 Apr 26</td><td class="mono" style="color:var(--success)">28 Apr 26 (Actual)</td><td><span class="pill pill-success">Completed</span></td></tr>
+                <tr><td>Structural Steel Erection Complete</td><td style="color:var(--muted)">Civil</td><td class="mono">10 Jun 26</td><td class="mono" style="color:var(--warning)">25 Jun 26 (Forecast)</td><td><span class="pill pill-warning">Delayed</span></td></tr>
+                <tr><td>Mechanical Equipment Installed</td><td style="color:var(--muted)">Mechanical</td><td class="mono">15 Jul 26</td><td class="mono" style="color:var(--warning)">10 Aug 26 (Forecast)</td><td><span class="pill pill-warning">At Risk</span></td></tr>
+                <tr><td>Electrical Rough-in Complete</td><td style="color:var(--muted)">Electrical</td><td class="mono">30 Jul 26</td><td class="mono" style="color:var(--danger)">20 Aug 26 (Forecast)</td><td><span class="pill pill-danger">At Risk</span></td></tr>
+                <tr><td>Start FAT / SAT Commissioning</td><td style="color:var(--muted)">Testing</td><td class="mono">05 Aug 26</td><td class="mono" style="color:var(--danger)">25 Aug 26 (Forecast)</td><td><span class="pill pill-danger">Delayed</span></td></tr>
+                <tr><td>Mechanical Completion (MC)</td><td style="color:var(--muted)">All Disciplines</td><td class="mono">20 Sep 26</td><td class="mono" style="color:var(--danger)">15 Oct 26 (Forecast)</td><td><span class="pill pill-danger">Delayed</span></td></tr>
+              </tbody>
+            </table></div>
+          </div>
+        </div>
+
+        <div class="footer-note">EPS Dashboard — Progress &amp; Schedule Module · ข้อมูลจำลองเพื่อการนำเสนอ · Baseline อ้างอิงจาก Contract Schedule Rev.0</div>
+      </section>
+
+      <!-- ================= SITE PHOTOS PAGE ================= -->
+      <section class="page" id="page-photos">
+        <div class="section-head">
+          <div>
+            <div class="section-title"><span class="sw" style="background:var(--primary)"></span>รูปภาพหน้างาน</div>
+            <div class="section-en">Site Photos · แยกตาม WBS · sync จาก ConZol Photo Log</div>
+          </div>
+          <span class="doctype-tag">142 photos</span>
+        </div>
+
+        <div class="photo-filter-row">
+          <span class="chip-filter on">ทั้งหมด · All WBS</span>
+          <span class="chip-filter">Crusher Area</span>
+          <span class="chip-filter">Raw Mill</span>
+          <span class="chip-filter">Foundation</span>
+          <span class="chip-filter">Progress สัปดาห์นี้</span>
+        </div>
+
+        <div class="card">
+
+          <div class="photo-zone-head">
+            <div class="photo-zone-title"><span class="sw" style="width:8px;height:8px;border-radius:3px;background:var(--warning);display:inline-block"></span>Crusher Area <span style="color:var(--muted-2);font-weight:500;font-size:11.5px">WBS-01</span></div>
+            <div class="photo-zone-count">38 รูป · อัปเดตล่าสุด 10 Jul</div>
+          </div>
+          <div class="photo-grid">
+            <div class="photo-card">
+              <div class="photo-thumb pt-1"><span class="ptag">Crusher Area</span><span class="pdate">10 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">งานติดตั้งโครงเหล็ก Crusher Structure</div><div class="sub">Progress · Steel Erection</div></div>
+            </div>
+            <div class="photo-card">
+              <div class="photo-thumb pt-3"><span class="ptag">Crusher Area</span><span class="pdate">08 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">จุดที่พบ NCR-0042 ก่อนแก้ไข</div><div class="sub">NCR Evidence · NCR-0042</div></div>
+            </div>
+            <div class="photo-card">
+              <div class="photo-thumb pt-4"><span class="ptag">Crusher Area</span><span class="pdate">05 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">มุมมองรวม ก่อนเข้า Concrete Pour</div><div class="sub">Overview · Wide shot</div></div>
+            </div>
+            <div class="photo-card">
+              <div class="photo-thumb pt-6"><span class="ptag">Crusher Area</span><span class="pdate">01 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">Rebar inspection ก่อนเทคอนกรีต</div><div class="sub">ITP · Hold Point</div></div>
+            </div>
+          </div>
+
+          <div class="photo-zone-head">
+            <div class="photo-zone-title"><span class="sw" style="width:8px;height:8px;border-radius:3px;background:var(--success);display:inline-block"></span>Raw Mill <span style="color:var(--muted-2);font-weight:500;font-size:11.5px">WBS-02</span></div>
+            <div class="photo-zone-count">51 รูป · อัปเดตล่าสุด 09 Jul</div>
+          </div>
+          <div class="photo-grid">
+            <div class="photo-card">
+              <div class="photo-thumb pt-2"><span class="ptag">Raw Mill</span><span class="pdate">09 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">ติดตั้ง Conveyor Layout ME-101</div><div class="sub">Progress · Mechanical</div></div>
+            </div>
+            <div class="photo-card">
+              <div class="photo-thumb pt-1"><span class="ptag">Raw Mill</span><span class="pdate">06 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">งานฐานเครื่องจักร M-102</div><div class="sub">Progress · Foundation</div></div>
+            </div>
+            <div class="photo-card">
+              <div class="photo-thumb pt-5"><span class="ptag">Raw Mill</span><span class="pdate">03 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">จุดที่พบ NCR-0039 รอ Resubmit</div><div class="sub">NCR Evidence · NCR-0039</div></div>
+            </div>
+          </div>
+
+          <div class="photo-zone-head">
+            <div class="photo-zone-title"><span class="sw" style="width:8px;height:8px;border-radius:3px;background:var(--muted-2);display:inline-block"></span>Foundation <span style="color:var(--muted-2);font-weight:500;font-size:11.5px">WBS-03</span></div>
+            <div class="photo-zone-count">28 รูป · อัปเดตล่าสุด 02 Jul · ปิดงานแล้ว</div>
+          </div>
+          <div class="photo-grid">
+            <div class="photo-card">
+              <div class="photo-thumb pt-2"><span class="ptag">Foundation</span><span class="pdate">02 Jul</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">As-built หลังเทคอนกรีตฐานราก Zone B</div><div class="sub">As-Built · Closeout</div></div>
+            </div>
+            <div class="photo-card">
+              <div class="photo-thumb pt-4"><span class="ptag">Foundation</span><span class="pdate">28 Jun</span>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M4 7h3l2-3h6l2 3h3a1 1 0 011 1v11a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1z"/><circle cx="12" cy="13" r="3.5"/></svg>
+              </div>
+              <div class="photo-meta"><div class="cap">Sign-off ตรวจรับงาน Foundation Zone A-C</div><div class="sub">QA Sign-off · Handover</div></div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="footer-note">EPS Dashboard — Site Photos Module · ข้อมูลจำลองเพื่อการนำเสนอ · ภาพจริงจะอัปโหลดผ่านแอปหน้างานและ sync เข้า ConZol Photo Log</div>
+      </section>
+
+      <!-- ================= DOCUMENTS PAGE (placeholder) ================= -->
+      <section class="page" id="page-documents">
+        <div class="section-head"><div><div class="section-title"><span class="sw" style="background:var(--warning)"></span>เอกสาร (ConZol)</div><div class="section-en">Document console — ITP · MST · MAR · WIR/MIR · NCR · QA/QC</div></div></div>
+        <div class="coming">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          <h3>เชื่อมต่อไปยัง ConZol</h3>
+          <p>Open in ConZol → /conzol/projects/SKK4-SB/quality-documents</p>
+        </div>
+      </section>
+
+      <!-- ================= ADMIN PAGE (placeholder) ================= -->
+      <section class="page" id="page-admin">
+        <div class="section-head"><div><div class="section-title"><span class="sw" style="background:var(--muted)"></span>ผู้ดูแลระบบ</div><div class="section-en">Admin</div></div></div>
+        <div class="coming">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/></svg>
+          <h3>กำลังพัฒนา · Coming soon</h3>
+          <p>ตั้งค่าผู้ใช้งาน สิทธิ์การเข้าถึง (User Roles &amp; Permissions) และการเชื่อมต่อระบบ</p>
+        </div>
+      </section>
+
+    </main>
+  </div>
+</div>
+
+<script>
+function goLogin(){
+  document.getElementById('view-dashboard').classList.add('hidden');
+  document.getElementById('view-projects').classList.add('hidden');
+  document.getElementById('view-login').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+function goProjects(){
+  document.getElementById('view-login').classList.add('hidden');
+  document.getElementById('view-dashboard').classList.add('hidden');
+  document.getElementById('view-projects').classList.remove('hidden');
+  window.scrollTo(0,0);
+}
+
+const projectsData = {
+  'SKK-IM-CM-26002': { name:'Satellite Burner KK4', ncrNote:'3 NCR รอปิด' },
+  'STS-CN-PP-26001': { name:'9.9 Biomass Power Plant', ncrNote:'1 NCR รอปิด' },
+  'SLP-IM-CM-26004': { name:'Solar Roof', ncrNote:'ไม่มี NCR ค้าง' },
+  'RM2-IM-CM-25911': { name:'Air Seal Roller RM2', ncrNote:'ปิดงานแล้ว · Closed out' },
+  'RM4-IM-CM-25988': { name:'Air Seal Roller RM4', ncrNote:'ปิดงานแล้ว · Closed out' },
+  'KRR-CN-WH-26010': { name:'Warehouse Extension', ncrNote:'5 NCR รอปิด' },
+  'PTW-IM-EL-26015': { name:'Electrical Substation Upgrade', ncrNote:'2 NCR รอปิด' },
+  'BNK-CN-OF-26020': { name:'Office Retrofit', ncrNote:'4 NCR รอปิด' }
+};
+
+function openProject(code){
+  const p = projectsData[code] || { name:'Untitled Project', ncrNote:'' };
+  document.getElementById('pcName').textContent = p.name;
+  document.getElementById('pcCode').textContent = code;
+  document.getElementById('crumbProject').textContent = code;
+  document.getElementById('qProjName').textContent = p.name;
+  document.getElementById('qDocCode').textContent = code;
+  document.getElementById('qNcrPill').textContent = p.ncrNote;
+
+  document.getElementById('view-projects').classList.add('hidden');
+  document.getElementById('view-login').classList.add('hidden');
+  document.getElementById('view-dashboard').classList.remove('hidden');
+
+  showPage('quality', document.querySelector('.nav-item[data-page="quality"]'));
+  window.scrollTo(0,0);
+}
+
+function renderRings(){
+  document.querySelectorAll('.ring').forEach(el=>{
+    const v = Math.max(0, Math.min(100, +el.dataset.value || 0));
+    const color = el.dataset.color;
+    const r = 24, c = 2 * Math.PI * r;
+    const fill = el.querySelector('.ring-fill');
+    fill.style.strokeDasharray = c;
+    fill.style.strokeDashoffset = c * (1 - v / 100);
+    if(color) fill.style.stroke = color;
+    const lbl = el.querySelector('.ring-label');
+    if(lbl) lbl.textContent = v + '%';
+  });
+}
+document.addEventListener('DOMContentLoaded', renderRings);
+
+const pageNames = {
+  overview:  'ภาพรวม · Overview',
+  quality:   'คุณภาพ · Quality',
+  cost:      'ต้นทุน · Cost',
+  delivery:  'ความคืบหน้า · Progress',
+  photos:    'รูปภาพหน้างาน · Site Photos',
+  documents: 'เอกสาร · Documents',
+  admin:     'ผู้ดูแลระบบ · Admin'
+};
+
+function showPage(name, btn){
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  document.querySelectorAll('.nav-item[data-page="'+name+'"]').forEach(n => n.classList.add('active'));
+
+  document.getElementById('crumbCurrent').textContent = pageNames[name] || name;
+  document.getElementById('sidebar').classList.remove('open');
+  document.querySelector('.content').scrollTo(0,0);
+  window.scrollTo(0,0);
+}
+</script>
+
+</body>
+</html>
