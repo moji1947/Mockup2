@@ -9,38 +9,42 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   EPS DASHBOARD — "BLUEPRINT & CONCRETE" THEME
-   Steel-blueprint blue + warm concrete neutrals + safety amber/rust
+   EPS DASHBOARD — "CLEAN & LOGICAL" THEME
+   ปรับสีพื้นหลังให้ขาวสะอาดตา + สีสถานะตามตรรกะมนุษย์
    ============================================================ */
 :root{
-  --primary:#0B4F6C;
-  --primary-600:#073A50;
-  --primary-50:#EAF2F5;
-  --primary-100:#CBE0E8;
+  /* โทนสีหลัก (สีน้ำเงิน - ความน่าเชื่อถือ/แผนงาน) */
+  --primary: #2563EB;
+  --primary-600: #1D4ED8;
+  --primary-50: #EFF6FF;
+  --primary-100: #DBEAFE;
 
-  --ink:#1C2B36;
-  --ink-2:#33454F;
-  --muted:#5B6B72;
-  --muted-2:#8B9AA1;
+  /* โทนตัวอักษร (ดำอมเทา ลดอาการตาล้า) */
+  --ink: #111827;
+  --ink-2: #374151;
+  --muted: #4B5563;
+  --muted-2: #6B7280;
 
-  --border:#DCD8CE;
-  --border-soft:#E9E6DD;
-  --bg:#F2F0EA;
-  --card:#FFFFFF;
+  /* โทนสีพื้นหลังและขอบ (ขาวคลีน) */
+  --border: #D1D5DB;
+  --border-soft: #E5E7EB;
+  --bg: #F3F4F6;
+  --card: #FFFFFF;
 
-  --success:#1B7A43;
-  --success-50:#E9F6EE;
-  --warning:#B5650D;
-  --warning-50:#FBF1E6;
-  --danger:#B23A32;
-  --danger-50:#FBEEEC;
-  --info:#0E7C86;
-  --info-50:#EAF6F7;
+  /* สีสถานะตามตรรกะมนุษย์ (Semantic Colors) */
+  --success: #16A34A;   /* เขียว = ดี, ทำได้จริง */
+  --success-50: #F0FDF4;
+  --warning: #D97706;   /* ส้ม = เสี่ยง, เฝ้าระวัง */
+  --warning-50: #FFFBEB;
+  --danger: #DC2626;    /* แดง = ล่าช้า, สำคัญ */
+  --danger-50: #FEF2F2;
+  --info: #0284C7;      /* ฟ้า = ข้อมูลทั่วไป */
+  --info-50: #F0F9FF;
 
   --radius:14px;
   --radius-sm:10px;
-  --shadow-card:0 1px 2px rgba(28,43,54,.05), 0 1px 3px rgba(28,43,54,.07);
-  --shadow-pop:0 4px 14px rgba(28,43,54,.10), 0 2px 5px rgba(28,43,54,.05);
+  --shadow-card:0 1px 2px rgba(17,24,39,.05), 0 1px 3px rgba(17,24,39,.07);
+  --shadow-pop:0 4px 14px rgba(17,24,39,.10), 0 2px 5px rgba(17,24,39,.05);
 
   --font-display:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif;
   --font-body:'IBM Plex Sans Thai','IBM Plex Sans',sans-serif;
@@ -64,7 +68,7 @@ table{ border-collapse:collapse; width:100%; }
 ::selection{ background:var(--primary-100); }
 
 ::-webkit-scrollbar{ width:8px; height:8px; }
-::-webkit-scrollbar-thumb{ background:#CFC9BC; border-radius:8px; }
+::-webkit-scrollbar-thumb{ background:#D1D5DB; border-radius:8px; }
 ::-webkit-scrollbar-track{ background:transparent; }
 
 .hidden{ display:none !important; }
@@ -77,7 +81,7 @@ table{ border-collapse:collapse; width:100%; }
   justify-content:center;
   background:
     radial-gradient(1100px 500px at 15% -10%, var(--primary-50), transparent 60%),
-    radial-gradient(900px 500px at 100% 110%, #EFF2E8, transparent 55%),
+    radial-gradient(900px 500px at 100% 110%, var(--success-50), transparent 55%),
     var(--bg);
   padding:24px;
 }
@@ -95,7 +99,7 @@ table{ border-collapse:collapse; width:100%; }
 @media(min-width:860px){ .login-shell{ grid-template-columns:1.05fr 1fr; } }
 
 .login-aside{
-  background:linear-gradient(160deg, var(--primary-600), var(--primary) 65%, #3E8AA0);
+  background:linear-gradient(160deg, var(--primary-600), var(--primary) 65%, #60A5FA);
   color:#fff;
   padding:44px 40px;
   display:flex;
@@ -338,11 +342,11 @@ table{ border-collapse:collapse; width:100%; }
 .status-fill{ height:100%; border-radius:99px; }
 
 /* map */
-.map-wrap{ position:relative; width:100%; height:420px; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:#dbe6ea; }
-.map-wrap iframe{ width:100%; height:100%; border:0; filter:saturate(.88) sepia(.06); }
+.map-wrap{ position:relative; width:100%; height:420px; border-radius:12px; overflow:hidden; border:1px solid var(--border); background:#DBEAFE; }
+.map-wrap iframe{ width:100%; height:100%; border:0; filter:saturate(.88); }
 .map-legend{ display:flex; flex-wrap:wrap; gap:14px; margin-top:12px; }
 .map-pin{ position:absolute; transform:translate(-50%,-100%); background:none; border:none; padding:0; cursor:pointer; z-index:5; }
-.map-pin .pin-dot{ display:block; width:15px; height:15px; border-radius:50%; border:2.5px solid #fff; box-shadow:0 2px 6px rgba(28,43,54,.35); position:relative; }
+.map-pin .pin-dot{ display:block; width:15px; height:15px; border-radius:50%; border:2.5px solid #fff; box-shadow:0 2px 6px rgba(17,24,39,.35); position:relative; }
 .map-pin .pin-pulse{ position:absolute; inset:-6px; border-radius:50%; opacity:.35; animation:pinpulse 2.2s ease-out infinite; }
 .map-pin .pin-tag{
   position:absolute; bottom:calc(100% + 6px); left:50%; transform:translateX(-50%);
@@ -402,7 +406,7 @@ table{ border-collapse:collapse; width:100%; }
 .blueprint-card{
   background:
     linear-gradient(var(--card), var(--card)),
-    radial-gradient(circle, rgba(11,79,108,.09) 1px, transparent 1.4px);
+    radial-gradient(circle, rgba(37,99,235,.09) 1px, transparent 1.4px);
   background-size:100% 100%, 22px 22px;
   background-position:0 0, -5px -5px;
 }
@@ -447,22 +451,23 @@ table{ border-collapse:collapse; width:100%; }
   color:rgba(255,255,255,.85);
 }
 .photo-thumb svg{ width:26px; height:26px; opacity:.85; }
-.photo-thumb .ptag{ position:absolute; top:8px; left:8px; font-family:var(--font-mono); font-size:9.5px; background:rgba(28,43,54,.55); color:#fff; padding:2px 6px; border-radius:5px; }
-.photo-thumb .pdate{ position:absolute; bottom:8px; right:8px; font-family:var(--font-mono); font-size:9.5px; background:rgba(28,43,54,.55); color:#fff; padding:2px 6px; border-radius:5px; }
+.photo-thumb .ptag{ position:absolute; top:8px; left:8px; font-family:var(--font-mono); font-size:9.5px; background:rgba(17,24,39,.55); color:#fff; padding:2px 6px; border-radius:5px; }
+.photo-thumb .pdate{ position:absolute; bottom:8px; right:8px; font-family:var(--font-mono); font-size:9.5px; background:rgba(17,24,39,.55); color:#fff; padding:2px 6px; border-radius:5px; }
 .photo-meta{ padding:10px 12px; }
 .photo-meta .cap{ font-size:12.5px; font-weight:600; color:var(--ink); line-height:1.4; }
 .photo-meta .sub{ font-size:11px; color:var(--muted-2); margin-top:3px; font-family:var(--font-mono); }
-.pt-1{ background:linear-gradient(135deg,#0B4F6C,#3E8AA0); }
-.pt-2{ background:linear-gradient(135deg,#1B7A43,#4FA974); }
-.pt-3{ background:linear-gradient(135deg,#B5650D,#DA9142); }
-.pt-4{ background:linear-gradient(135deg,#33454F,#5B6B72); }
-.pt-5{ background:linear-gradient(135deg,#B23A32,#D06A5E); }
-.pt-6{ background:linear-gradient(135deg,#0E7C86,#4CA7AF); }
+
+/* ปรับสีรูปภาพหน้างานให้เข้ากับโทนใหม่ */
+.pt-1{ background:linear-gradient(135deg,#1D4ED8,#60A5FA); }
+.pt-2{ background:linear-gradient(135deg,#16A34A,#4ADE80); }
+.pt-3{ background:linear-gradient(135deg,#D97706,#FBBF24); }
+.pt-4{ background:linear-gradient(135deg,#374151,#9CA3AF); }
+.pt-5{ background:linear-gradient(135deg,#DC2626,#F87171); }
+.pt-6{ background:linear-gradient(135deg,#0284C7,#38BDF8); }
 </style>
 </head>
 <body>
 
-<!-- ============================================================ LOGIN ============================================================ -->
 <div id="view-login">
   <div class="login-shell">
     <div class="login-aside">
@@ -519,7 +524,6 @@ table{ border-collapse:collapse; width:100%; }
   </div>
 </div>
 
-<!-- ============================================================ ALL PROJECTS OVERVIEW ============================================================ -->
 <div id="view-projects" class="hidden">
 
   <header class="pnav">
@@ -555,7 +559,6 @@ table{ border-collapse:collapse; width:100%; }
       <div class="page-h1-sub">Overview / My Console — เลือกโปรเจคเพื่อดูแดชบอร์ดคุณภาพแบบละเอียด · Select a project to open its full Quality dashboard</div>
     </div>
 
-    <!-- summary + status -->
     <div class="grid section">
       <div class="col-4 card">
         <div class="card-title" style="margin-bottom:12px">สรุปโปรเจค · Projects Summary</div>
@@ -570,7 +573,7 @@ table{ border-collapse:collapse; width:100%; }
         <div class="card-head"><div><div class="card-title">โปรเจคที่กำลังดำเนินการ · Ongoing Projects</div><div class="card-sub">สถานะเทียบแผนงาน (Actual vs Plan Baseline)</div></div><span class="doctype-tag">6 of 8</span></div>
 
         <div class="status-row">
-          <div class="status-row-top"><span><span class="nm">Ahead</span><span class="sub">Actual &gt; Plan</span></span><span class="ct">1 of 6</span></div>
+          <div class="status-row-top"><span><span class="nm">Ahead</span><span class="sub">Actual > Plan</span></span><span class="ct">1 of 6</span></div>
           <div class="status-track"><div class="status-fill" style="width:17%;background:var(--primary)"></div></div>
         </div>
         <div class="status-row">
@@ -578,17 +581,16 @@ table{ border-collapse:collapse; width:100%; }
           <div class="status-track"><div class="status-fill" style="width:33%;background:var(--success)"></div></div>
         </div>
         <div class="status-row">
-          <div class="status-row-top"><span><span class="nm">At Risk</span><span class="sub">Actual &lt; Plan 5–14%</span></span><span class="ct">2 of 6</span></div>
+          <div class="status-row-top"><span><span class="nm">At Risk</span><span class="sub">Actual < Plan 5–14%</span></span><span class="ct">2 of 6</span></div>
           <div class="status-track"><div class="status-fill" style="width:33%;background:var(--warning)"></div></div>
         </div>
         <div class="status-row">
-          <div class="status-row-top"><span><span class="nm">Delay</span><span class="sub">Actual &lt; Plan 15%+</span></span><span class="ct">1 of 6</span></div>
+          <div class="status-row-top"><span><span class="nm">Delay</span><span class="sub">Actual < Plan 15%+</span></span><span class="ct">1 of 6</span></div>
           <div class="status-track"><div class="status-fill" style="width:17%;background:var(--danger)"></div></div>
         </div>
       </div>
     </div>
 
-    <!-- map -->
     <div class="section">
       <div class="section-head">
         <div><div class="section-title"><span class="sw" style="background:var(--primary)"></span>ตำแหน่งโปรเจค · Locations</div><div class="section-en">คลิกที่หมุดเพื่อเปิดโปรเจค · Click a pin to open that project</div></div>
@@ -635,7 +637,6 @@ table{ border-collapse:collapse; width:100%; }
       </div>
     </div>
 
-    <!-- project grid -->
     <div class="section">
       <div class="section-head">
         <div><div class="section-title"><span class="sw" style="background:var(--ink)"></span>รายชื่อโปรเจคทั้งหมด · All Projects</div><div class="section-en">8 projects · คลิกการ์ดเพื่อเปิดแดชบอร์ด</div></div>
@@ -752,7 +753,6 @@ table{ border-collapse:collapse; width:100%; }
   </main>
 </div>
 
-<!-- ============================================================ DASHBOARD ============================================================ -->
 <div id="view-dashboard" class="hidden">
 
   <aside class="sidebar" id="sidebar">
@@ -853,7 +853,6 @@ table{ border-collapse:collapse; width:100%; }
         </p>
       </div>
 
-      <!-- ================= OVERVIEW PAGE ================= -->
       <section class="page" id="page-overview">
         <div class="section-head">
           <div>
@@ -902,10 +901,8 @@ table{ border-collapse:collapse; width:100%; }
         </div>
       </section>
 
-      <!-- ================= QUALITY PAGE ================= -->
       <section class="page active" id="page-quality">
 
-        <!-- project header + gauge -->
         <div class="grid section">
           <div class="col-8 card">
             <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:18px">
@@ -943,8 +940,8 @@ table{ border-collapse:collapse; width:100%; }
               <path d="M20 100 A80 80 0 0 1 180 100" fill="none" stroke="url(#gaugeGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="251.2" stroke-dashoffset="24"/>
               <defs>
                 <linearGradient id="gaugeGrad" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stop-color="#1B7A43"/>
-                  <stop offset="100%" stop-color="#0B4F6C"/>
+                  <stop offset="0%" stop-color="#16A34A"/>
+                  <stop offset="100%" stop-color="#2563EB"/>
                 </linearGradient>
               </defs>
               <text x="100" y="88" text-anchor="middle" class="gauge-num">89.6</text>
@@ -954,7 +951,6 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- quick strip -->
         <div class="grid section">
           <div class="col-3 card kpi">
             <div class="kpi-top"><div class="kpi-ico bg-danger"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86l-8.18 14.14A1 1 0 003 19h18a1 1 0 00.87-1.5L13.7 3.86a1 1 0 00-1.72 0z"/></svg></div></div>
@@ -982,7 +978,6 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- NCR -->
         <div class="section">
           <div class="section-head">
             <div>
@@ -1016,16 +1011,15 @@ table{ border-collapse:collapse; width:100%; }
                   <tr><td class="mono">NCR-0031</td><td style="color:var(--muted)">Crusher Area</td><td><span class="pill pill-danger">IFR</span></td><td><span class="pill pill-danger">C</span></td><td style="color:var(--muted)">28 Jun</td></tr>
                 </tbody>
               </table></div>
-              <div style="font-size:11px;color:var(--muted-2);margin-top:10px">Return Code: A = Approved · AC = Approved with Comment · C = Revise &amp; Resubmit</div>
+              <div style="font-size:11px;color:var(--muted-2);margin-top:10px">Return Code: A = Approved · AC = Approved with Comment · C = Revise & Resubmit</div>
             </div>
           </div>
         </div>
 
-        <!-- RFA/RFI -->
         <div class="section">
           <div class="section-head">
             <div>
-              <div class="section-title"><span class="sw" style="background:var(--warning)"></span>RFA &amp; RFI</div>
+              <div class="section-title"><span class="sw" style="background:var(--warning)"></span>RFA & RFI</div>
               <div class="section-en">Request for Action / Information · Doc Type = <span class="mono">RFA</span>, <span class="mono">RIN</span></div>
             </div>
           </div>
@@ -1041,7 +1035,7 @@ table{ border-collapse:collapse; width:100%; }
                 <thead><tr><th>Doc No.</th><th>ประเภท</th><th>หัวข้อ</th><th>ผู้ส่ง → ผู้รับ</th><th>ส่งเมื่อ</th><th>Due</th><th>สถานะ</th></tr></thead>
                 <tbody>
                   <tr><td class="mono">RFA-0118</td><td style="color:var(--muted)">RFA</td><td>ขออนุมัติเปลี่ยนวิธีเชื่อมท่อ Raw Mill</td><td class="mono" style="color:var(--muted);font-size:11px">KRR → EPS</td><td style="color:var(--muted)">10 Jul</td><td style="color:var(--danger);font-weight:600">เกิน 2 วัน</td><td><span class="pill pill-danger">Overdue</span></td></tr>
-                  <tr><td class="mono">RIN-0203</td><td style="color:var(--muted)">RFI</td><td>สอบถามสเปควาล์วในแบบ P&amp;ID</td><td class="mono" style="color:var(--muted);font-size:11px">EPS → STS</td><td style="color:var(--muted)">12 Jul</td><td style="color:var(--muted)">เหลือ 5 วัน</td><td><span class="pill pill-warning">Pending</span></td></tr>
+                  <tr><td class="mono">RIN-0203</td><td style="color:var(--muted)">RFI</td><td>สอบถามสเปควาล์วในแบบ P&ID</td><td class="mono" style="color:var(--muted);font-size:11px">EPS → STS</td><td style="color:var(--muted)">12 Jul</td><td style="color:var(--muted)">เหลือ 5 วัน</td><td><span class="pill pill-warning">Pending</span></td></tr>
                   <tr><td class="mono">RFA-0116</td><td style="color:var(--muted)">RFA</td><td>ขอเทคอนกรีตฐานราก Foundation Zone B</td><td class="mono" style="color:var(--muted);font-size:11px">KRR → EPS</td><td style="color:var(--muted)">13 Jul</td><td style="color:var(--muted)">เหลือ 6 วัน</td><td><span class="pill pill-warning">Pending</span></td></tr>
                 </tbody>
               </table></div>
@@ -1049,11 +1043,10 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- ITP / FAT / SAT -->
         <div class="section">
           <div class="section-head">
             <div>
-              <div class="section-title"><span class="sw" style="background:var(--info)"></span>ITP &amp; Acceptance Test</div>
+              <div class="section-title"><span class="sw" style="background:var(--info)"></span>ITP & Acceptance Test</div>
               <div class="section-en">Doc Type = <span class="mono">ITP</span>, <span class="mono">FAT</span>, <span class="mono">SAT</span>, <span class="mono">QCR</span></div>
             </div>
           </div>
@@ -1085,12 +1078,11 @@ table{ border-collapse:collapse; width:100%; }
                   <span style="font-size:11px;color:var(--muted);width:52px;text-align:right">4 / 8</span>
                 </div>
               </div>
-              <div style="font-size:11px;color:var(--muted-2);margin-top:16px;line-height:1.6">FAT = โรงงาน · Factory Acceptance Test &nbsp;·&nbsp; SAT = ไซต์งาน · Site Acceptance Test</div>
+              <div style="font-size:11px;color:var(--muted-2);margin-top:16px;line-height:1.6">FAT = โรงงาน · Factory Acceptance Test  ·  SAT = ไซต์งาน · Site Acceptance Test</div>
             </div>
           </div>
         </div>
 
-        <!-- Punch list -->
         <div class="section">
           <div class="section-head">
             <div>
@@ -1104,7 +1096,7 @@ table{ border-collapse:collapse; width:100%; }
             <div class="col-4 card kpi"><div class="kpi-label">เกินกำหนดปิด <span class="kpi-label-en">Overdue</span></div><div class="kpi-value" style="color:var(--warning)">6</div></div>
 
             <div class="col-12 card">
-              <div class="card-head"><div><div class="card-title">Punch List ตามสถานะ &amp; WBS</div><div class="card-sub">Status by work-breakdown area</div></div></div>
+              <div class="card-head"><div><div class="card-title">Punch List ตามสถานะ & WBS</div><div class="card-sub">Status by work-breakdown area</div></div></div>
               <div class="bar-row"><span class="bar-label">Crusher Area</span><div class="bar-track">
                 <div class="bar-fill" style="width:30%;background:var(--success)"></div><div class="bar-fill" style="width:18%;background:var(--warning)"></div><div class="bar-fill" style="width:12%;background:var(--danger)"></div>
               </div><span class="bar-value">20</span></div>
@@ -1123,11 +1115,10 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- Document compliance -->
         <div class="section">
           <div class="section-head">
             <div>
-              <div class="section-title"><span class="sw" style="background:var(--ink)"></span>Document Compliance &amp; Revision Control</div>
+              <div class="section-title"><span class="sw" style="background:var(--ink)"></span>Document Compliance & Revision Control</div>
               <div class="section-en">Revision ID: A, B, C… / 00, 01, 02… / As-Built Z0–Z9</div>
             </div>
           </div>
@@ -1152,7 +1143,6 @@ table{ border-collapse:collapse; width:100%; }
         <div class="footer-note">EPS Dashboard — Quality Module · ข้อมูลจำลองเพื่อการนำเสนอ · อ้างอิงโครงสร้างจากระบบ ConZol</div>
       </section>
 
-      <!-- ================= COST PAGE (placeholder) ================= -->
       <section class="page" id="page-cost">
         <div class="section-head"><div><div class="section-title"><span class="sw" style="background:var(--success)"></span>ต้นทุน</div><div class="section-en">Cost dashboard</div></div></div>
         <div class="coming">
@@ -1162,17 +1152,15 @@ table{ border-collapse:collapse; width:100%; }
         </div>
       </section>
 
-      <!-- ================= DELIVERY / PROGRESS PAGE ================= -->
       <section class="page" id="page-delivery">
         <div class="section-head">
           <div>
-            <div class="section-title"><span class="sw" style="background:var(--info)"></span>ความคืบหน้า &amp; กำหนดการ</div>
-            <div class="section-en">Progress &amp; Schedule · S-Curve, Gantt, WBS Breakdown</div>
+            <div class="section-title"><span class="sw" style="background:var(--info)"></span>ความคืบหน้า & กำหนดการ</div>
+            <div class="section-en">Progress & Schedule · S-Curve, Gantt, WBS Breakdown</div>
           </div>
           <span class="pill pill-danger">Schedule Variance -9.63%</span>
         </div>
 
-        <!-- KPI strip -->
         <div class="grid section">
           <div class="col-3 card kpi">
             <div class="kpi-label">ความคืบหน้าจริง <span class="kpi-label-en">Actual %complete</span></div>
@@ -1196,7 +1184,6 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- S-Curve -->
         <div class="section">
           <div class="section-head">
             <div>
@@ -1207,7 +1194,6 @@ table{ border-collapse:collapse; width:100%; }
           <div class="card blueprint-card">
             <div class="scurve-wrap">
               <svg viewBox="0 0 780 280" xmlns="http://www.w3.org/2000/svg">
-                <!-- grid -->
                 <g class="scurve-grid">
                   <line x1="40" y1="20" x2="40" y2="230"/>
                   <line x1="40" y1="230" x2="740" y2="230"/>
@@ -1223,12 +1209,10 @@ table{ border-collapse:collapse; width:100%; }
                   <line x1="652.5" y1="20" x2="652.5" y2="230"/>
                   <line x1="740" y1="20" x2="740" y2="230"/>
                 </g>
-                <!-- y labels -->
                 <text x="32" y="234" text-anchor="end" class="scurve-axis-label">0%</text>
                 <text x="32" y="174" text-anchor="end" class="scurve-axis-label">50%</text>
                 <text x="32" y="114" text-anchor="end" class="scurve-axis-label">75%</text>
                 <text x="32" y="54" text-anchor="end" class="scurve-axis-label">100%</text>
-                <!-- x labels -->
                 <text x="40" y="248" class="scurve-axis-label">Feb</text>
                 <text x="127.5" y="248" class="scurve-axis-label">Mar</text>
                 <text x="215" y="248" class="scurve-axis-label">Apr</text>
@@ -1239,19 +1223,14 @@ table{ border-collapse:collapse; width:100%; }
                 <text x="652.5" y="248" class="scurve-axis-label">Sep</text>
                 <text x="712" y="248" class="scurve-axis-label">Oct</text>
 
-                <!-- actual area fill (up to today) -->
                 <path class="scurve-fill" d="M40,230 L40,210 L127.5,184 L215,144 L302.5,96 L390,132 L453,132.4 L453,230 Z"/>
 
-                <!-- plan (dashed, full baseline) -->
                 <path class="scurve-plan" d="M40,210 L127.5,184 L215,144 L302.5,96 L390,52 L477.5,28 L565,20 L652.5,20 L740,20"/>
 
-                <!-- actual solid (to today) -->
                 <path class="scurve-actual" d="M40,210 L127.5,184 L215,144 L302.5,96 L390,132 L453,132.4"/>
 
-                <!-- forecast (amber dashed, today -> completion) -->
                 <path class="scurve-forecast" d="M453,132.4 L565,84 L652.5,44 L740,20"/>
 
-                <!-- today marker -->
                 <line class="scurve-today-line" x1="453" y1="20" x2="453" y2="230"/>
                 <text x="458" y="30" class="scurve-axis-label" fill="var(--ink-2)">Today · 10 Jul</text>
 
@@ -1259,9 +1238,9 @@ table{ border-collapse:collapse; width:100%; }
               </svg>
             </div>
             <div class="legend" style="margin-top:6px">
-              <span class="legend-item"><span style="display:inline-block;width:16px;height:0;border-top:2.5px dashed var(--muted-2)"></span>&nbsp;Plan Baseline</span>
-              <span class="legend-item"><span style="display:inline-block;width:16px;height:3px;background:var(--primary);border-radius:2px"></span>&nbsp;Actual</span>
-              <span class="legend-item"><span style="display:inline-block;width:16px;height:0;border-top:2.5px dashed var(--warning)"></span>&nbsp;Forecast</span>
+              <span class="legend-item"><span style="display:inline-block;width:16px;height:0;border-top:2.5px dashed var(--muted-2)"></span> Plan Baseline</span>
+              <span class="legend-item"><span style="display:inline-block;width:16px;height:3px;background:var(--primary);border-radius:2px"></span> Actual</span>
+              <span class="legend-item"><span style="display:inline-block;width:16px;height:0;border-top:2.5px dashed var(--warning)"></span> Forecast</span>
             </div>
             <div style="font-size:11px;color:var(--muted-2);margin-top:10px">
               Baseline ยึดตามสัญญา (Contract Baseline Rev.0) · Forecast คำนวณจาก productivity rate เฉลี่ย 4 สัปดาห์ล่าสุด
@@ -1269,7 +1248,6 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- Progress by WBS -->
         <div class="section">
           <div class="section-head">
             <div>
@@ -1292,7 +1270,6 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- Gantt -->
         <div class="section">
           <div class="section-head">
             <div>
@@ -1306,7 +1283,7 @@ table{ border-collapse:collapse; width:100%; }
             </div>
 
             <div class="gantt-row">
-              <div class="gantt-label"><div class="nm">Sitework &amp; Foundation</div><div class="wbs">WBS-01 · Civil</div></div>
+              <div class="gantt-label"><div class="nm">Sitework & Foundation</div><div class="wbs">WBS-01 · Civil</div></div>
               <div class="gantt-track">
                 <div class="gantt-plan-bar" style="left:0%;width:33.3%;border-color:var(--success)"></div>
                 <div class="gantt-actual-bar" style="left:0%;width:33.3%;background:var(--success)"></div>
@@ -1345,14 +1322,14 @@ table{ border-collapse:collapse; width:100%; }
               </div>
             </div>
             <div class="gantt-row">
-              <div class="gantt-label"><div class="nm">Testing &amp; Commissioning</div><div class="wbs">WBS-06 · FAT / SAT</div></div>
+              <div class="gantt-label"><div class="nm">Testing & Commissioning</div><div class="wbs">WBS-06 · FAT / SAT</div></div>
               <div class="gantt-track">
                 <div class="gantt-plan-bar" style="left:55.6%;width:33.3%;border-color:var(--muted-2)"></div>
                 <div class="gantt-today" style="left:59%"></div>
               </div>
             </div>
             <div class="gantt-row">
-              <div class="gantt-label"><div class="nm">Punch List &amp; Handover</div><div class="wbs">WBS-07 · All</div></div>
+              <div class="gantt-label"><div class="nm">Punch List & Handover</div><div class="wbs">WBS-07 · All</div></div>
               <div class="gantt-track">
                 <div class="gantt-plan-bar" style="left:66.7%;width:33.3%;border-color:var(--muted-2)"></div>
                 <div class="gantt-today" style="left:59%"><span class="tag">Today</span></div>
@@ -1369,7 +1346,6 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <!-- Milestones -->
         <div class="section">
           <div class="section-head">
             <div>
@@ -1392,10 +1368,9 @@ table{ border-collapse:collapse; width:100%; }
           </div>
         </div>
 
-        <div class="footer-note">EPS Dashboard — Progress &amp; Schedule Module · ข้อมูลจำลองเพื่อการนำเสนอ · Baseline อ้างอิงจาก Contract Schedule Rev.0</div>
+        <div class="footer-note">EPS Dashboard — Progress & Schedule Module · ข้อมูลจำลองเพื่อการนำเสนอ · Baseline อ้างอิงจาก Contract Schedule Rev.0</div>
       </section>
 
-      <!-- ================= SITE PHOTOS PAGE ================= -->
       <section class="page" id="page-photos">
         <div class="section-head">
           <div>
@@ -1495,7 +1470,6 @@ table{ border-collapse:collapse; width:100%; }
         <div class="footer-note">EPS Dashboard — Site Photos Module · ข้อมูลจำลองเพื่อการนำเสนอ · ภาพจริงจะอัปโหลดผ่านแอปหน้างานและ sync เข้า ConZol Photo Log</div>
       </section>
 
-      <!-- ================= DOCUMENTS PAGE (placeholder) ================= -->
       <section class="page" id="page-documents">
         <div class="section-head"><div><div class="section-title"><span class="sw" style="background:var(--warning)"></span>เอกสาร (ConZol)</div><div class="section-en">Document console — ITP · MST · MAR · WIR/MIR · NCR · QA/QC</div></div></div>
         <div class="coming">
@@ -1505,13 +1479,12 @@ table{ border-collapse:collapse; width:100%; }
         </div>
       </section>
 
-      <!-- ================= ADMIN PAGE (placeholder) ================= -->
       <section class="page" id="page-admin">
         <div class="section-head"><div><div class="section-title"><span class="sw" style="background:var(--muted)"></span>ผู้ดูแลระบบ</div><div class="section-en">Admin</div></div></div>
         <div class="coming">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/></svg>
           <h3>กำลังพัฒนา · Coming soon</h3>
-          <p>ตั้งค่าผู้ใช้งาน สิทธิ์การเข้าถึง (User Roles &amp; Permissions) และการเชื่อมต่อระบบ</p>
+          <p>ตั้งค่าผู้ใช้งาน สิทธิ์การเข้าถึง (User Roles & Permissions) และการเชื่อมต่อระบบ</p>
         </div>
       </section>
 
