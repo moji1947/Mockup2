@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EPS Dashboard — Sign In (Mockup)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@400;500;600;700&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --primary: #2563EB;
+    --primary-600: #1D4ED8;
+    --primary-50: #EFF6FF;
+    --primary-100: #DBEAFE;
+
+    --ink: #111827;
+    --ink-2: #374151;
+    --muted: #4B5563;
+    --muted-2: #6B7280;
+
+    --bg: #F3F4F6;
+    --card: #FFFFFF;
+    --border: #D1D5DB;
+    --border-soft: #E5E7EB;
+
+    --success: #16A34A;
+    --success-50: #F0FDF4;
+    --warning: #D97706;
+    --warning-50: #FFFBEB;
+    --danger: #DC2626;
+    --danger-50: #FEF2F2;
+
+    --radius: 14px;
+    --radius-sm: 10px;
+    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
+    --shadow-pop: 0 4px 15px rgba(0, 0, 0, 0.08);
+
+    --font-body: 'IBM Plex Sans Thai', 'IBM Plex Sans', sans-serif;
+  }
+
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0; min-height: 100%;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--bg);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 32px 20px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-pop);
+    padding: 40px 36px 32px 36px;
+  }
+
+  .mock-badge {
+    display: block;
+    text-align: center;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--primary-600);
+    background: var(--primary-50);
+    border: 1px solid var(--primary-100);
+    border-radius: 999px;
+    padding: 4px 10px;
+    width: fit-content;
+    margin: 0 auto 20px auto;
+  }
+
+  .brand-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  .brand-row .brand-mark {
+    height: 26px; width: 26px;
+    border-radius: 6px;
+    background: var(--primary);
+    color: #fff;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 700; font-size: 13px;
+    flex: none;
+  }
+  .brand-row .brand-name {
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--muted-2);
+    border-left: 1px solid var(--border);
+    padding-left: 10px;
+  }
+
+  h1.title {
+    font-size: 21px;
+    font-weight: 700;
+    color: var(--ink);
+    margin: 0 0 6px 0;
+    text-align: center;
+    letter-spacing: -0.01em;
+  }
+  p.subtitle {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 24px 0;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  .demo-hint {
+    background: var(--bg);
+    border: 1px dashed var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 13px;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 22px;
+  }
+  .demo-hint b { color: var(--ink-2); }
+  .demo-hint code {
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: monospace;
+  }
+
+  .field { margin-bottom: 16px; }
+  .field label {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 600;
+    color: var(--ink-2);
+    margin-bottom: 6px;
+    letter-spacing: 0.01em;
+  }
+  .field input {
+    width: 100%;
+    padding: 11px 13px;
+    font-size: 14px;
+    font-family: var(--font-body);
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+  }
+  .field input::placeholder { color: var(--muted-2); }
+  .field input:hover { border-color: var(--muted-2); }
+  .field input:focus-visible {
+    border-color: var(--primary);
+    background: var(--card);
+    box-shadow: 0 0 0 3px var(--primary-100);
+  }
+  .field.error input {
+    border-color: var(--danger);
+    background: var(--danger-50);
+  }
+  .field .error-msg {
+    display: none;
+    font-size: 12px;
+    color: var(--danger);
+    margin-top: 5px;
+  }
+  .field.error .error-msg { display: block; }
+
+  .row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 2px 0 24px 0;
+    font-size: 13px;
+  }
+  .remember { display: flex; align-items: center; gap: 7px; color: var(--muted); cursor: pointer; }
+  .remember input[type="checkbox"] {
+    width: 15px; height: 15px;
+    accent-color: var(--primary);
+    cursor: pointer;
+  }
+  button.link-btn {
+    background: none; border: none; padding: 0; cursor: pointer;
+    color: var(--primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    font-weight: 500;
+  }
+  button.link-btn:hover { color: var(--primary-600); text-decoration: underline; }
+  button.link-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; border-radius: 3px; }
+
+  button.submit {
+    width: 100%;
+    padding: 12px;
+    font-size: 14.5px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    color: #fff;
+    background: var(--primary);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    letter-spacing: 0.01em;
+    transition: background .15s ease, transform .05s ease, box-shadow .15s ease;
+    box-shadow: var(--shadow-card);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  button.submit:hover:not(:disabled) { background: var(--primary-600); }
+  button.submit:active:not(:disabled) { transform: translateY(1px); }
+  button.submit:focus-visible { outline: 2px solid var(--primary-600); outline-offset: 2px; }
+  button.submit:disabled { opacity: 0.75; cursor: default; }
+
+  .spinner {
+    width: 15px; height: 15px;
+    border: 2px solid rgba(255,255,255,0.4);
+    border-top-color: #fff;
+    border-radius: 50%;
+    display: none;
+    animation: spin .7s linear infinite;
+  }
+  button.submit.loading .spinner { display: inline-block; }
+  button.submit.loading .btn-text { display: none; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  .divider {
+    display: flex; align-items: center; gap: 12px;
+    margin: 24px 0 18px 0;
+    color: var(--muted-2);
+    font-size: 12px;
+  }
+  .divider::before, .divider::after {
+    content: ""; flex: 1; height: 1px; background: var(--border-soft);
+  }
+
+  .sso-btn {
+    width: 100%;
+    padding: 10px;
+    font-size: 13.5px;
+    font-weight: 500;
+    font-family: var(--font-body);
+    color: var(--ink-2);
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    transition: border-color .15s ease, background .15s ease;
+  }
+  .sso-btn:hover { background: var(--bg); border-color: var(--muted-2); }
+  .sso-btn:focus-visible { outline: 2px solid var(--primary); outline-offset: 2px; }
+
+  .footer-note {
+    margin-top: 28px;
+    font-size: 12.5px;
+    color: var(--muted-2);
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  /* Mock dashboard screen */
+  .mock-dashboard {
+    display: none;
+    width: 100%;
+    max-width: 480px;
+    background: var(--card);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-pop);
+    padding: 40px 36px;
+    text-align: center;
+  }
+  .mock-dashboard .check {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--success-50);
+    color: var(--success);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 18px auto;
+    font-size: 26px;
+  }
+  .mock-dashboard h2 {
+    font-size: 19px;
+    margin: 0 0 8px 0;
+  }
+  .mock-dashboard p {
+    font-size: 13.5px;
+    color: var(--muted);
+    margin: 0 0 22px 0;
+    line-height: 1.6;
+  }
+  .mock-dashboard .logout-btn {
+    padding: 10px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    font-family: var(--font-body);
+    color: var(--ink-2);
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+  }
+  .mock-dashboard .logout-btn:hover { background: var(--border-soft); }
+
+  /* Toast */
+  .toast {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%) translateY(-12px);
+    background: var(--ink);
+    color: #fff;
+    padding: 11px 18px;
+    border-radius: var(--radius-sm);
+    font-size: 13.5px;
+    font-weight: 500;
+    box-shadow: var(--shadow-pop);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease, transform .2s ease;
+    display: flex; align-items: center; gap: 8px;
+    z-index: 50;
+    max-width: 90vw;
+  }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
+  .toast .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+  .toast.success .dot { background: var(--success); }
+  .toast.info .dot { background: var(--primary); }
+  .toast.error .dot { background: var(--danger); }
+
+  @media (prefers-reduced-motion: reduce) {
+    .spinner { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+  <div class="page">
+
+    <div class="card" id="loginCard">
+      <span class="mock-badge">MOCKUP · ไม่เชื่อมต่อระบบจริง</span>
+
+      <div class="brand-row">
+        <div class="brand-mark">EPS</div>
+        <span class="brand-name">EPS DASHBOARD</span>
+      </div>
+
+      <h1 class="title">Sign in to your account</h1>
+      <p class="subtitle">Track progress, cost, and quality across all active project sites.</p>
+
+      <div class="demo-hint">
+        <b>บัญชีทดลอง (Mock):</b><br>
+        Email: <code>demo@eps.com</code> &nbsp;/&nbsp; Password: <code>demo1234</code>
+      </div>
+
+      <form id="loginForm" novalidate>
+        <div class="field" id="emailField">
+          <label for="email">Email address</label>
+          <input id="email" type="email" placeholder="name@company.com" autocomplete="username">
+          <div class="error-msg" id="emailErrorMsg">Enter a valid email address.</div>
+        </div>
+        <div class="field" id="passwordField">
+          <label for="password">Password</label>
+          <input id="password" type="password" placeholder="Enter your password" autocomplete="current-password">
+          <div class="error-msg" id="passwordErrorMsg">Password is required.</div>
+        </div>
+
+        <div class="row-between">
+          <label class="remember">
+            <input type="checkbox" id="remember">
+            Remember me
+          </label>
+          <button type="button" class="link-btn" id="forgotBtn">Forgot password?</button>
+        </div>
+
+        <button type="submit" class="submit" id="signInBtn">
+          <span class="spinner"></span>
+          <span class="btn-text">Sign In</span>
+        </button>
+      </form>
+
+      <div class="divider">OR</div>
+
+      <button type="button" class="sso-btn" id="ssoBtn">Sign in with Company SSO</button>
+
+      <p class="footer-note">
+        Need access? Contact your project administrator.<br>
+        © 2026 EPS. All rights reserved. (Mockup build — no live backend)
+      </p>
+    </div>
+
+    <div class="mock-dashboard" id="mockDashboard">
+      <div class="check">✓</div>
+      <h2>เข้าสู่ระบบสำเร็จ (จำลอง)</h2>
+      <p>นี่คือหน้าจอจำลองหลังล็อกอิน — ยังไม่มีการเชื่อมต่อฐานข้อมูลหรือระบบหลังบ้านจริง<br>ข้อมูลทั้งหมดถูกตรวจสอบในเบราว์เซอร์เท่านั้น</p>
+      <button class="logout-btn" id="logoutBtn">Sign out</button>
+    </div>
+
+  </div>
+
+  <div class="toast" id="toast"><span class="dot"></span><span id="toastText"></span></div>
+
+<script>
+  // ── MOCK-ONLY AUTH ────────────────────────────────────────────
+  // ไม่มีการเรียก API หรือฐานข้อมูลจริงใดๆ ทั้งสิ้น
+  // ใช้รายชื่อบัญชีทดลองที่ฝังไว้ในโค้ดเพื่อจำลองพฤติกรรมเท่านั้น
+  const MOCK_USERS = [
+    { email: 'demo@eps.com', password: 'demo1234' }
+  ];
+
+  const emailInput = document.getElementById('email');
+  const passwordInput = document.getElementById('password');
+  const emailField = document.getElementById('emailField');
+  const passwordField = document.getElementById('passwordField');
+  const emailErrorMsg = document.getElementById('emailErrorMsg');
+  const passwordErrorMsg = document.getElementById('passwordErrorMsg');
+  const form = document.getElementById('loginForm');
+  const signInBtn = document.getElementById('signInBtn');
+  const loginCard = document.getElementById('loginCard');
+  const mockDashboard = document.getElementById('mockDashboard');
+  const logoutBtn = document.getElementById('logoutBtn');
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toastText');
+  let toastTimer = null;
+
+  function showToast(message, type) {
+    clearTimeout(toastTimer);
+    toast.className = 'toast show ' + type;
+    toastText.textContent = message;
+    toastTimer = setTimeout(() => { toast.className = 'toast ' + type; }, 3000);
+  }
+
+  function isValidEmail(v) {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+  }
+
+  function clearErrors() {
+    emailField.classList.remove('error');
+    passwordField.classList.remove('error');
+  }
+
+  emailInput.addEventListener('input', () => emailField.classList.remove('error'));
+  passwordInput.addEventListener('input', () => passwordField.classList.remove('error'));
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    clearErrors();
+
+    const emailVal = emailInput.value.trim();
+    const passVal = passwordInput.value;
+
+    let hasError = false;
+    if (!isValidEmail(emailVal)) {
+      emailErrorMsg.textContent = 'Enter a valid email address.';
+      emailField.classList.add('error');
+      hasError = true;
+    }
+    if (!passVal) {
+      passwordErrorMsg.textContent = 'Password is required.';
+      passwordField.classList.add('error');
+      hasError = true;
+    }
+    if (hasError) {
+      showToast('Please fix the highlighted fields.', 'error');
+      return;
+    }
+
+    signInBtn.classList.add('loading');
+    signInBtn.disabled = true;
+
+    // จำลองการหน่วงเวลาเหมือนกำลังเรียก API (แต่ไม่มีการเชื่อมต่อจริง)
+    setTimeout(() => {
+      signInBtn.classList.remove('loading');
+      signInBtn.disabled = false;
+
+      const match = MOCK_USERS.find(u => u.email === emailVal && u.password === passVal);
+
+      if (match) {
+        showToast('Signed in — welcome back.', 'success');
+        loginCard.style.display = 'none';
+        mockDashboard.style.display = 'block';
+      } else {
+        emailErrorMsg.textContent = 'Email or password is incorrect.';
+        passwordErrorMsg.textContent = 'Email or password is incorrect.';
+        emailField.classList.add('error');
+        passwordField.classList.add('error');
+        showToast('Invalid email or password.', 'error');
+      }
+    }, 900);
+  });
+
+  logoutBtn.addEventListener('click', () => {
+    mockDashboard.style.display = 'none';
+    loginCard.style.display = 'block';
+    form.reset();
+    clearErrors();
+    showToast('Signed out.', 'info');
+  });
+
+  document.getElementById('forgotBtn').addEventListener('click', () => {
+    showToast('Password reset link sent (mock — no email actually sent).', 'info');
+  });
+
+  document.getElementById('ssoBtn').addEventListener('click', () => {
+    showToast('SSO sign-in is not wired up in this mockup.', 'info');
+  });
+</script>
+
+</body>
+</html>
